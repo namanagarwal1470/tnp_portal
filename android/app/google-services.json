@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "933856190400",
+    "project_id": "tnp-portal-5f090",
+    "storage_bucket": "tnp-portal-5f090.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933856190400:android:415a2cb9da7cc605587225",
+        "android_client_info": {
+          "package_name": "com.example.tnp_portal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933856190400-3hfk6404q3sv711iafc5lpg9qj07rp1k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tnp_portal",
+            "certificate_hash": "c629b3661760b8858a2d4e0c5fa3aff74e692435"
+          }
+        },
+        {
+          "client_id": "933856190400-iidl82e3d9cdj5ert3mc8hl18nh9elqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkn6GWu4ToIzvGt6IE59z9RZl8AJFQW5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933856190400-iidl82e3d9cdj5ert3mc8hl18nh9elqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
