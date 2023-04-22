@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tnp_portal/screens/login.dart';
+import 'package:tnp_portal/screens/onboard/login.dart';
+import 'package:tnp_portal/screens/student/loginstudent.dart';
+import 'package:tnp_portal/screens/admin/loginadmin.dart';
 
 class splash extends StatefulWidget {
   splash({Key? key}) : super(key: key);
@@ -31,8 +33,20 @@ class _splashState extends State<splash> {
       enroll = await (prefs.getString('enroll') ?? '');
       type = await (prefs.getString('type') ?? '');
       name = await (prefs.getString('name') ?? '');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => loginpage()));
+      enroll == ''
+          ? Navigator.push(
+              context, MaterialPageRoute(builder: (context) => loginpage()))
+          : type == "admin"
+              ? Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => adminhomepage(enroll, name)),
+                  (Route<dynamic> route) => false)
+              : Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => studenthomepage(enroll, name)),
+                  (Route<dynamic> route) => false);
 
       print(enroll);
     } catch (e) {

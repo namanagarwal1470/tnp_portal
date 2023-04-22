@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tnp_portal/screens/admin/loginadmin.dart';
+import 'package:tnp_portal/screens/student/loginstudent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class loginpage extends StatefulWidget {
@@ -167,11 +169,22 @@ class _loginpageState extends State<loginpage> {
         if (password.text == idpassword[i]) {
           if (usertype[i] == "admin") {
             add_user(enrollno.text, usertype[i], name[i]);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        adminhomepage(enrollno.text, name[i])),
+                (Route<dynamic> route) => false);
 
             print("login admin");
           } else {
             add_user(enrollno.text, usertype[i], name[i]);
-
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        studenthomepage(enrollno.text, name[i])),
+                (Route<dynamic> route) => false);
             print("login student");
           }
         } else {
