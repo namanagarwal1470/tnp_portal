@@ -15,6 +15,8 @@ class _studentpageState extends State<studentpage> {
   List status = [];
   List status2 = [];
   List names = [];
+  var notplacedcount;
+  var placedcount;
   bool isloading = true;
   TextEditingController editingController = TextEditingController();
 
@@ -118,6 +120,23 @@ class _studentpageState extends State<studentpage> {
                               BorderRadius.all(Radius.circular(40.0)))),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    child: Text(
+                      "placed: " + placedcount.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    child: Text("not placed: " + notplacedcount.toString(),
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
               Expanded(
                 flex: 1,
                 child: Container(
@@ -197,6 +216,15 @@ class _studentpageState extends State<studentpage> {
       List<String> s = studentdocs.map((e) => e['status'] as String).toList();
 
       List<String> n = studentdocs.map((e) => e['name'] as String).toList();
+      int notplaced = 0;
+      int placed = 0;
+      for (var i in s) {
+        if (i == 'notplaced') {
+          notplaced++;
+        } else {
+          placed++;
+        }
+      }
 
       setState(() {
         enrollno = e;
@@ -205,6 +233,8 @@ class _studentpageState extends State<studentpage> {
         status2 = List.from(status);
         enrollno2 = List.from(enrollno);
         name2 = List.from(names);
+        placedcount = placed;
+        notplacedcount = notplaced;
 
         isloading = false;
       });

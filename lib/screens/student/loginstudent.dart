@@ -6,6 +6,7 @@ import 'allcompanies.dart';
 import 'wardendetails.dart';
 import 'contactus.dart';
 import 'package:tnp_portal/screens/onboard/login.dart';
+import 'studentprofile.dart';
 
 class studenthomepage extends StatefulWidget {
   String enrollno;
@@ -66,7 +67,7 @@ class _studenthomepageState extends State<studenthomepage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => companypage()))
+                                    builder: (context) => companypage(widget.enrollno)))
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -186,7 +187,7 @@ class _studenthomepageState extends State<studenthomepage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Warden",
+                                  "T&P officer",
                                   style: TextStyle(fontSize: 22),
                                 ),
                                 Text(
@@ -283,10 +284,10 @@ class _studenthomepageState extends State<studenthomepage> {
         ),
         GestureDetector(
           onTap: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => studentprofile(widget.enrollno)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => studentprofile(widget.enrollno)));
           },
           child: ListTile(
             title: Row(

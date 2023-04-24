@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class companypage extends StatefulWidget {
-  companypage({Key? key}) : super(key: key);
+  String enrollno;
+  companypage(this.enrollno);
 
   @override
   _companypageState createState() => _companypageState();
@@ -12,12 +13,14 @@ class _companypageState extends State<companypage> {
   bool isloading = true;
   List companyname = [];
   List companyname2 = [];
+  List docid = [];
   List status = [];
+  var filledcount;
+  var notfilledcount;
   TextEditingController editingController = TextEditingController();
 
   @override
   void initState() {
-    super.initState();
     fetch_all_data();
   }
 
@@ -102,6 +105,23 @@ class _companypageState extends State<companypage> {
                               BorderRadius.all(Radius.circular(40.0)))),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    child: Text(
+                      "filled: " + filledcount.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    child: Text("not filled: " + notfilledcount.toString(),
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
               Expanded(
                 flex: 1,
                 child: Container(
@@ -115,7 +135,8 @@ class _companypageState extends State<companypage> {
                         : ListView.builder(
                             itemCount: companyname.length,
                             itemBuilder: (context, index) {
-                              return Cont(companyname[index], status[index]);
+                              return Cont(companyname[index], status[index],
+                                  docid[index]);
                             })),
               ),
             ],
@@ -123,11 +144,14 @@ class _companypageState extends State<companypage> {
         ));
   }
 
-  Widget Cont(String text1, String text2) {
+  Widget Cont(String text1, String text2, String text3) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => roomdetails(text1, text2)));
+        if (text2 != "filled") {
+          updatedata(text3);
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => roomdetails(text1, text2)));}
+        }
       },
       child: Container(
           height: 60,
@@ -151,6 +175,19 @@ class _companypageState extends State<companypage> {
     );
   }
 
+  updatedata(var text3) async {
+    CollectionReference leaves =
+        FirebaseFirestore.instance.collection('companies');
+
+    leaves.doc(text3).update({
+      'filledstudents': FieldValue.arrayUnion([widget.enrollno]),
+      'status': "filled"
+    });
+    setState(() {
+      initState();
+    });
+  }
+
   fetch_all_data() async {
     try {
       CollectionReference data =
@@ -159,12 +196,26 @@ class _companypageState extends State<companypage> {
       List<String> r =
           leavesdocs.map((e) => e['companyname'] as String).toSet().toList();
       List<String> s = leavesdocs.map((e) => e['status'] as String).toList();
+      List<String> l = leavesdocs.map((e) => e.id as String).toList();
+
+      int notfilled = 0;
+      int filled = 0;
+      for (var i in s) {
+        if (i == 'notfilled') {
+          notfilled++;
+        } else {
+          filled++;
+        }
+      }
 
       setState(() {
         companyname = r;
         companyname2 = List.from(companyname);
         status = s;
+        docid = l;
         isloading = false;
+        filledcount = filled;
+        notfilledcount = notfilled;
       });
     } catch (e) {
       print(e.toString());
