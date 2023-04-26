@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tnp_portal/screens/admin/addcompanyform.dart';
+import 'companyform.dart';
+import 'companyapply.dart';
 
 class companypage extends StatefulWidget {
   String enrollno;
@@ -14,7 +17,9 @@ class _companypageState extends State<companypage> {
   List companyname = [];
   List companyname2 = [];
   List docid = [];
+  List docid2=[];
   List status = [];
+  List status2 = [];
   var filledcount;
   var notfilledcount;
   TextEditingController editingController = TextEditingController();
@@ -27,22 +32,35 @@ class _companypageState extends State<companypage> {
   void filterSearchResults(String query) {
     var dummySearchList = [];
     dummySearchList.addAll(companyname2);
-    if (query.isNotEmpty) {
+    if (query.toLowerCase().isNotEmpty) {
       List<String> dummyListData = [];
+      List<String> dummystatusdata = [];
+      List<String> dummydocdata = [];
       dummySearchList.forEach((item) {
-        if (item.contains(query)) {
+        if (item.toLowerCase().contains(query)) {
           dummyListData.add(item);
+          dummystatusdata.add(status2[companyname2.indexOf(item)]);
+          dummydocdata.add(docid2[companyname2.indexOf(item)]);
+
         }
       });
       setState(() {
         companyname.clear();
+        status.clear();
+        docid.clear();
         companyname.addAll(dummyListData);
+        status.addAll(dummystatusdata);
+        docid.addAll(dummydocdata);
       });
       return;
     } else {
       setState(() {
         companyname.clear();
+        status.clear();
+        docid.clear();
         companyname = List.from(companyname2);
+        status = List.from(status2);
+        docid=List.from(docid2);
       });
     }
   }
@@ -147,11 +165,11 @@ class _companypageState extends State<companypage> {
   Widget Cont(String text1, String text2, String text3) {
     return GestureDetector(
       onTap: () {
-        if (text2 != "filled") {
-          updatedata(text3);
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => roomdetails(text1, text2)));}
-        }
+        
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => companyapply(text1, widget.enrollno,text2,text3)));
       },
       child: Container(
           height: 60,
@@ -175,19 +193,6 @@ class _companypageState extends State<companypage> {
     );
   }
 
-  updatedata(var text3) async {
-    CollectionReference leaves =
-        FirebaseFirestore.instance.collection('companies');
-
-    leaves.doc(text3).update({
-      'filledstudents': FieldValue.arrayUnion([widget.enrollno]),
-      'status': "filled"
-    });
-    setState(() {
-      initState();
-    });
-  }
-
   fetch_all_data() async {
     try {
       CollectionReference data =
@@ -195,12 +200,29 @@ class _companypageState extends State<companypage> {
       List<DocumentSnapshot> leavesdocs = (await data.get()).docs;
       List<String> r =
           leavesdocs.map((e) => e['companyname'] as String).toSet().toList();
-      List<String> s = leavesdocs.map((e) => e['status'] as String).toList();
+      var s = leavesdocs.map((e) => e['filledstudents']).toList();
+      List<String> t = [];
       List<String> l = leavesdocs.map((e) => e.id as String).toList();
+
+      for (var i in s) {
+        int count = 0;
+        for (var m in i) {
+          if (m == widget.enrollno) {
+            count += 1;
+
+            break;
+          }
+        }
+        if (count == 0) {
+          t.add("notfilled");
+        } else {
+          t.add("filled");
+        }
+      }
 
       int notfilled = 0;
       int filled = 0;
-      for (var i in s) {
+      for (var i in t) {
         if (i == 'notfilled') {
           notfilled++;
         } else {
@@ -211,8 +233,11 @@ class _companypageState extends State<companypage> {
       setState(() {
         companyname = r;
         companyname2 = List.from(companyname);
-        status = s;
+        status = t;
+
+        status2 = List.from(status);
         docid = l;
+        docid2=List.from(docid);
         isloading = false;
         filledcount = filled;
         notfilledcount = notfilled;

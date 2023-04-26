@@ -12,11 +12,11 @@ class companyForm extends StatefulWidget {
 }
 
 class _companyFormState extends State<companyForm> {
-  TextEditingController departdate = TextEditingController();
-  TextEditingController arrivaldate = TextEditingController();
-  TextEditingController departtime = TextEditingController();
-  TextEditingController arrivaltime = TextEditingController();
-  TextEditingController address = TextEditingController();
+  TextEditingController companyname = TextEditingController();
+  TextEditingController package = TextEditingController();
+  TextEditingController role = TextEditingController();
+  TextEditingController cgpa = TextEditingController();
+  TextEditingController branches = TextEditingController();
   TextEditingController reason = TextEditingController();
 
   @override
@@ -59,140 +59,71 @@ class _companyFormState extends State<companyForm> {
               ),
             ),
             filled: true,
-            icon: const Icon(Icons.calendar_today),
-            hintText: 'Enter the date',
-            labelText: 'Date of Departure',
-          ),
-          keyboardType: TextInputType.datetime,
-          controller: departdate,
-          onTap: () async {
-            var pickeddate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2101));
-
-            if (pickeddate != null) {
-              String formatteddate =
-                  DateFormat('dd-MM-yyyy').format(pickeddate);
-
-              setState(() {
-                departdate.text = formatteddate;
-              });
-            } else {
-              print("Date is not selected");
-            }
-          },
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: new OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
-            filled: true,
-            icon: const Icon(Icons.calendar_today),
-            hintText: 'Enter the date',
-            labelText: 'Date of Arrival',
-          ),
-          keyboardType: TextInputType.datetime,
-          controller: arrivaldate,
-          onTap: () async {
-            var pickedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2101));
-
-            if (pickedDate != null) {
-              String formattedDate =
-                  DateFormat('dd-MM-yyyy').format(pickedDate);
-
-              setState(() {
-                arrivaldate.text = formattedDate;
-              });
-            } else {
-              print("Date is not selected");
-            }
-          },
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: new OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
-            filled: true,
-            icon: const Icon(Icons.access_time),
-            hintText: 'Enter the time of leaving',
-            labelText: 'Departure Time',
-          ),
-          keyboardType: TextInputType.datetime,
-          controller: departtime,
-          onTap: () async {
-            var pickedTime = await showTimePicker(
-              initialTime: TimeOfDay.now(),
-              context: context,
-            );
-
-            if (pickedTime != null) {
-              setState(() {
-                departtime.text = pickedTime.format(context);
-              });
-            } else {
-              print("Time is not selected");
-            }
-          },
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: new OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
-            filled: true,
-            icon: const Icon(Icons.access_time),
-            hintText: 'Enter a expected arrival time',
-            labelText: 'In Time',
-          ),
-          keyboardType: TextInputType.datetime,
-          controller: arrivaltime,
-          onTap: () async {
-            var pickedTime = await showTimePicker(
-              initialTime: TimeOfDay.now(),
-              context: context,
-            );
-
-            if (pickedTime != null) {
-              setState(() {
-                arrivaltime.text = pickedTime.format(context);
-              });
-            } else {
-              print("Time is not selected");
-            }
-          },
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: new OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
-            filled: true,
-            icon: const Icon(Icons.add_location),
-            hintText: 'Enter the address of visit',
-            labelText: 'Address',
+            hintText: 'Company Name',
+            labelText: 'Company Name',
           ),
           keyboardType: TextInputType.text,
-          controller: address,
+          controller: companyname,
+        ),
+        SizedBox(height: 20),
+        TextField(
+          decoration: InputDecoration(
+            border: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+            filled: true,
+            hintText: 'Eligible Branches',
+            labelText: 'Eligible Branches',
+          ),
+          keyboardType: TextInputType.text,
+          controller: branches,
+        ),
+        SizedBox(height: 20),
+        TextField(
+          decoration: InputDecoration(
+            border: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+            filled: true,
+            hintText: 'Cgpa cut',
+            labelText: 'Cgpa cut',
+          ),
+          keyboardType: TextInputType.text,
+          controller: cgpa,
+        ),
+        SizedBox(height: 20),
+        TextField(
+          decoration: InputDecoration(
+            border: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+            filled: true,
+            hintText: 'Role',
+            labelText: 'Role',
+          ),
+          keyboardType: TextInputType.text,
+          controller: role,
+        ),
+        SizedBox(height: 20),
+        TextField(
+          decoration: InputDecoration(
+            border: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+            filled: true,
+            hintText: 'Package',
+            labelText: 'Package',
+          ),
+          keyboardType: TextInputType.text,
+          controller: package,
         ),
         SizedBox(height: 20),
         TextField(
@@ -206,9 +137,8 @@ class _companyFormState extends State<companyForm> {
               ),
             ),
             filled: true,
-            icon: const Icon(Icons.assistant),
-            hintText: 'Enter the Reason of leave',
-            labelText: 'Reason',
+            hintText: 'Additional Information',
+            labelText: 'Additional Information',
           ),
           controller: reason,
         ),
@@ -237,7 +167,7 @@ class _companyFormState extends State<companyForm> {
           child: Container(
             child: Center(
               child: Text(
-                "Submit",
+                "Add",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
@@ -256,23 +186,21 @@ class _companyFormState extends State<companyForm> {
     CollectionReference leaves =
         FirebaseFirestore.instance.collection('companies');
 
-    leaves.doc('OVV7qjqr1VzXTfkzplU0').update({
-      'filledstudents': FieldValue.arrayUnion([2])
-    });
     leaves.add({
-      'departdate': departdate.text,
-      'arrivaldate': arrivaldate.text,
-      'departtime': departtime.text,
-      'arrivaltime': arrivaltime.text,
-      'address': address.text,
-      'reason': reason.text
+      'companyname': companyname.text,
+      'branch': branches.text,
+      'package': package.text,
+      'role': role.text,
+      'cgpacut': cgpa.text,
+      'filledstudents': FieldValue.arrayUnion([2]),
+      'additionalinformation': reason.text
     });
     setState(() {
-      departdate.clear();
-      departtime.clear();
-      arrivaldate.clear();
-      arrivaltime.clear();
-      address.clear();
+      branches.clear();
+      cgpa.clear();
+      role.clear();
+      package.clear();
+      companyname.clear();
       reason.clear();
     });
   }

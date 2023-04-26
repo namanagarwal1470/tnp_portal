@@ -13,11 +13,11 @@ class companymanagementpage extends StatefulWidget {
 class _companymanagementpageState extends State<companymanagementpage> {
   List companyname = [];
 
-  // List reason = [];
-  // List date = [];
-  // List status = [];
-  // List amount = [];
-  // List type = [];
+  List cgpacut = [];
+  List role = [];
+  List branch = [];
+  List package = [];
+  List additional = [];
 
   bool isloading = true;
 
@@ -73,13 +73,12 @@ class _companymanagementpageState extends State<companymanagementpage> {
                             itemCount: companyname.length,
                             itemBuilder: (context, index) {
                               return Cont(
-                                companyname[index],
-                                // date[index],
-                                // reason[index],
-                                // status[index],
-                                // amount[index],
-                                // type[index]
-                              );
+                                  companyname[index],
+                                  package[index],
+                                  role[index],
+                                  additional[index],
+                                  branch[index],
+                                  cgpacut[index]);
                             })),
               ),
             ],
@@ -87,20 +86,15 @@ class _companymanagementpageState extends State<companymanagementpage> {
         ));
   }
 
-  Widget Cont(
-    String text1,
-    // String text2, String text3, String text4,
-    // String text5, String text6
-  ) {
+  Widget Cont(String text1, String text2, String text3, String text4,
+      String text5, String text6) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => myleavedetails(
-                      text1,
-                      // text2, text3, text4, text5, text6
-                    )));
+                builder: (context) =>
+                    myleavedetails(text1, text2, text3, text4, text5, text6)));
       },
       child: Container(
           height: 60,
@@ -135,19 +129,20 @@ class _companymanagementpageState extends State<companymanagementpage> {
       print(l);
 
       List<String> e = finedocs.map((e) => e['companyname'] as String).toList();
-      // List<String> d = finedocs.map((e) => e['date'] as String).toList();
-      // List<String> r = finedocs.map((e) => e['reason'] as String).toList();
-      // List<String> s = finedocs.map((e) => e['status'] as String).toList();
-      // List<String> a = finedocs.map((e) => e['amount'] as String).toList();
-      // List<String> t = finedocs.map((e) => e['type'] as String).toList();
+      List<String> d = finedocs.map((e) => e['package'] as String).toList();
+      List<String> r = finedocs.map((e) => e['role'] as String).toList();
+      List<String> s = finedocs.map((e) => e['branch'] as String).toList();
+      List<String> a = finedocs.map((e) => e['cgpacut'] as String).toList();
+      List<String> t =
+          finedocs.map((e) => e['additionalinformation'] as String).toList();
       setState(() {
         companyname = e;
 
-        // amount = a;
-        // reason = r;
-        // date = d;
-        // status = s;
-        // type = t;
+        cgpacut = a;
+        role = r;
+        package = d;
+        branch = s;
+        additional = t;
 
         isloading = false;
       });

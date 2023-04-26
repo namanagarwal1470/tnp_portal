@@ -67,7 +67,8 @@ class _studenthomepageState extends State<studenthomepage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => companypage(widget.enrollno)))
+                                    builder: (context) =>
+                                        companypage(widget.enrollno)))
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -198,50 +199,50 @@ class _studenthomepageState extends State<studenthomepage> {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () => {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             myfine(widget.enrollno)))
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  //background color of box
-                                  BoxShadow(
-                                    color: Color.fromARGB(255, 128, 89, 196),
-                                    // soften the shadow
-                                    //extend the shadow
-                                    spreadRadius: 1.0,
-                                    blurRadius: 5.0,
-                                    offset: Offset(
-                                      3.0, // Move to right 10  horizontally
-                                      3.0, // Move to bottom 10 Vertically
-                                    ),
-                                  )
-                                ],
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Pay",
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                                Text(
-                                  "Fines",
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
+                        // GestureDetector(
+                        //   onTap: () => {
+                        //     // Navigator.push(
+                        //     //     context,
+                        //     //     MaterialPageRoute(
+                        //     //         builder: (context) =>
+                        //     //             myfine(widget.enrollno)))
+                        //   },
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //         boxShadow: [
+                        //           //background color of box
+                        //           BoxShadow(
+                        //             color: Color.fromARGB(255, 128, 89, 196),
+                        //             // soften the shadow
+                        //             //extend the shadow
+                        //             spreadRadius: 1.0,
+                        //             blurRadius: 5.0,
+                        //             offset: Offset(
+                        //               3.0, // Move to right 10  horizontally
+                        //               3.0, // Move to bottom 10 Vertically
+                        //             ),
+                        //           )
+                        //         ],
+                        //         color: Colors.white,
+                        //         borderRadius: BorderRadius.circular(25)),
+                        //     height: 200,
+                        //     width: MediaQuery.of(context).size.width * 0.45,
+                        //     child: Column(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       crossAxisAlignment: CrossAxisAlignment.center,
+                        //       children: [
+                        //         Text(
+                        //           "Pay",
+                        //           style: TextStyle(fontSize: 22),
+                        //         ),
+                        //         Text(
+                        //           "Fines",
+                        //           style: TextStyle(fontSize: 22),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     )
                   ],
@@ -316,108 +317,108 @@ class _studenthomepageState extends State<studenthomepage> {
             ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => myleaves(widget.enrollno)));
-          },
-          child: ListTile(
-            title: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: Center(
-                    child: IconButton(
-                      padding: EdgeInsets.all(5),
-                      icon: Icon(FontAwesomeIcons.arrowRightFromBracket),
-                      color: Colors.deepPurple,
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                SizedBox(width: 5),
-                Text(
-                  'My leaves',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => mycomplaints(widget.enrollno)));
-          },
-          child: ListTile(
-            title: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: Center(
-                    child: IconButton(
-                      padding: EdgeInsets.all(5),
-                      icon: Icon(FontAwesomeIcons.fileInvoice),
-                      color: Colors.deepPurple,
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                SizedBox(width: 5),
-                Text(
-                  'My Complaints',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => myfine(widget.enrollno)));
-          },
-          child: ListTile(
-            title: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: Center(
-                    child: IconButton(
-                      padding: EdgeInsets.all(5),
-                      icon: Icon(FontAwesomeIcons.moneyBillTransfer),
-                      color: Colors.deepPurple,
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                SizedBox(width: 5),
-                Text(
-                  'My Fines',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: () {
+        //     // Navigator.push(
+        //     //     context,
+        //     //     MaterialPageRoute(
+        //     //         builder: (context) => myleaves(widget.enrollno)));
+        //   },
+        //   child: ListTile(
+        //     title: Row(
+        //       children: [
+        //         Container(
+        //           margin: EdgeInsets.all(10),
+        //           height: 30,
+        //           width: 30,
+        //           decoration: BoxDecoration(
+        //               shape: BoxShape.circle, color: Colors.white),
+        //           child: Center(
+        //             child: IconButton(
+        //               padding: EdgeInsets.all(5),
+        //               icon: Icon(FontAwesomeIcons.arrowRightFromBracket),
+        //               color: Colors.deepPurple,
+        //               onPressed: () {},
+        //             ),
+        //           ),
+        //         ),
+        //         SizedBox(width: 5),
+        //         Text(
+        //           'My leaves',
+        //           style: TextStyle(fontWeight: FontWeight.bold),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        // GestureDetector(
+        //   onTap: () {
+        //     // Navigator.push(
+        //     //     context,
+        //     //     MaterialPageRoute(
+        //     //         builder: (context) => mycomplaints(widget.enrollno)));
+        //   },
+        //   child: ListTile(
+        //     title: Row(
+        //       children: [
+        //         Container(
+        //           margin: EdgeInsets.all(10),
+        //           height: 30,
+        //           width: 30,
+        //           decoration: BoxDecoration(
+        //               shape: BoxShape.circle, color: Colors.white),
+        //           child: Center(
+        //             child: IconButton(
+        //               padding: EdgeInsets.all(5),
+        //               icon: Icon(FontAwesomeIcons.fileInvoice),
+        //               color: Colors.deepPurple,
+        //               onPressed: () {},
+        //             ),
+        //           ),
+        //         ),
+        //         SizedBox(width: 5),
+        //         Text(
+        //           'My Complaints',
+        //           style: TextStyle(fontWeight: FontWeight.bold),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        // GestureDetector(
+        //   onTap: () {
+        //     // Navigator.push(
+        //     //     context,
+        //     //     MaterialPageRoute(
+        //     //         builder: (context) => myfine(widget.enrollno)));
+        //   },
+        //   child: ListTile(
+        //     title: Row(
+        //       children: [
+        //         Container(
+        //           margin: EdgeInsets.all(10),
+        //           height: 30,
+        //           width: 30,
+        //           decoration: BoxDecoration(
+        //               shape: BoxShape.circle, color: Colors.white),
+        //           child: Center(
+        //             child: IconButton(
+        //               padding: EdgeInsets.all(5),
+        //               icon: Icon(FontAwesomeIcons.moneyBillTransfer),
+        //               color: Colors.deepPurple,
+        //               onPressed: () {},
+        //             ),
+        //           ),
+        //         ),
+        //         SizedBox(width: 5),
+        //         Text(
+        //           'My Fines',
+        //           style: TextStyle(fontWeight: FontWeight.bold),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         GestureDetector(
           onTap: () {
             removeuser(context);

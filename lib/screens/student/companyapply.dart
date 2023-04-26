@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class myleavedetails extends StatefulWidget {
+class companyapply extends StatefulWidget {
   String companyname;
-   String package;
-  String role;
-  String reason;
-  String branch;
-  String cgpa;
+  String enrollno;
+  String status;
+  String docid;
 
-  myleavedetails(
-    this.companyname,
-    this.package, this.role, this.reason,
-        this.branch, this.cgpa
-  );
+  companyapply(this.companyname, this.enrollno, this.status, this.docid);
 
   @override
-  State<myleavedetails> createState() => _myleavedetailsState();
+  State<companyapply> createState() => _companyapplyState();
 }
 
-class _myleavedetailsState extends State<myleavedetails> {
+class _companyapplyState extends State<companyapply> {
+  var branch = '';
+  var cgpa = '';
+  var role = '';
+  var package = '';
+  var reason = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetch_all_data();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +69,7 @@ class _myleavedetailsState extends State<myleavedetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.branch,
+                      branch,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -80,7 +86,7 @@ class _myleavedetailsState extends State<myleavedetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.cgpa,
+                      cgpa,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -97,7 +103,7 @@ class _myleavedetailsState extends State<myleavedetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.role,
+                      role,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -114,7 +120,7 @@ class _myleavedetailsState extends State<myleavedetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.package,
+                      package,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -131,14 +137,93 @@ class _myleavedetailsState extends State<myleavedetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.reason,
+                      reason,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
                 )),
+            widget.status == "notfilled" ? paybutton(context) : Text("")
           ],
         )
       ]),
     );
+  }
+
+  Widget paybutton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            updatedata();
+            Navigator.pop((context));
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 50),
+            child: Center(
+              child: Text(
+                "Apply",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: 40,
+          ),
+        ),
+      ],
+    );
+  }
+
+  updatedata() async {
+    CollectionReference leaves =
+        FirebaseFirestore.instance.collection('companies');
+
+    leaves.doc(widget.docid).update({
+      'filledstudents': FieldValue.arrayUnion([widget.enrollno]),
+    });
+    setState(() {
+      final snackBar = SnackBar(
+        content: const Text('Applied Successfully!'),
+        backgroundColor: (Colors.green),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 4000),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+  }
+
+  fetch_all_data() async {
+    try {
+      CollectionReference data =
+          await FirebaseFirestore.instance.collection('companies');
+
+      List<DocumentSnapshot> finedocs =
+          (await data.where("companyname", isEqualTo: widget.companyname).get())
+              .docs;
+
+      List<String> l = finedocs.map((e) => e.id as String).toList();
+      print(l);
+
+      List<String> e = finedocs.map((e) => e['companyname'] as String).toList();
+      List<String> d = finedocs.map((e) => e['package'] as String).toList();
+      List<String> r = finedocs.map((e) => e['role'] as String).toList();
+      List<String> s = finedocs.map((e) => e['branch'] as String).toList();
+      List<String> a = finedocs.map((e) => e['cgpacut'] as String).toList();
+      List<String> t =
+          finedocs.map((e) => e['additionalinformation'] as String).toList();
+      setState(() {
+        cgpa = a[0];
+        role = r[0];
+        package = d[0];
+        branch = s[0];
+        reason = t[0];
+      });
+    } catch (e) {
+      print(e.toString());
+      return [];
+    }
   }
 }
