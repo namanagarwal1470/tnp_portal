@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tnp_portal/screens/resumeshow.dart';
 
 class studentprofile extends StatefulWidget {
   String enrollno;
@@ -19,10 +20,11 @@ class _studentprofileState extends State<studentprofile> {
   String bloodgroup = '';
   String parentsname = '';
   String parentsmobile = '';
+  String resume = '';
   // String localguardianname = '';
   // String localguardianmobile = '';
   String address = '';
-  
+
   bool isloading = true;
 
   @override
@@ -107,10 +109,41 @@ class _studentprofileState extends State<studentprofile> {
               textcontainer(
                   h_factor * 23, w_factor * 312, h_factor * 16, "Address:"),
               textfield(h_factor * 50, w_factor * 312, true, address),
+              SizedBox(height: 20),
+              Submitbutton(context),
             ],
           )
         ]),
       ),
+    );
+  }
+
+  Widget Submitbutton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => pdfpage("resume", resume)));
+          },
+          child: Container(
+            child: Center(
+              child: Text(
+                "Resume",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: 40,
+          ),
+        ),
+      ],
     );
   }
 
@@ -186,6 +219,7 @@ class _studentprofileState extends State<studentprofile> {
       List<String> pno = leavesdocs.map((e) => e['phoneno'] as String).toList();
       // List<String> rn = leavesdocs.map((e) => e['roomno'] as String).toList();
       List<String> y = leavesdocs.map((e) => e['year'] as String).toList();
+      var re = leavesdocs.map((e) => e['resume'] as String).toList();
       setState(() {
         name = nm[0];
         dob = db[0];
@@ -202,6 +236,7 @@ class _studentprofileState extends State<studentprofile> {
         // localguardianname = lgn[0];
         // localguardianmobile = lgp[0];
         address = ad[0];
+        resume = re[0];
         isloading = false;
       });
     } catch (e) {

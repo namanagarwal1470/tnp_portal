@@ -192,7 +192,10 @@ class _companyFormState extends State<companyForm> {
       'package': package.text,
       'role': role.text,
       'cgpacut': cgpa.text,
-      'filledstudents': FieldValue.arrayUnion([2]),
+      'filledstudents': FieldValue.arrayUnion(["19103045"]),
+      'initialshortlistedstudents': FieldValue.arrayUnion(["19103045"]),
+      'oaclearedstudents': FieldValue.arrayUnion(["19103045"]),
+      'interviewclearedstudents': FieldValue.arrayUnion(["19103045"]),
       'additionalinformation': reason.text
     });
     setState(() {
