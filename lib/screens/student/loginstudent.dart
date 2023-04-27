@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tnp_portal/screens/student/ctccalculator.dart';
+import 'package:tnp_portal/screens/student/placementdata.dart';
 import 'allcompanies.dart';
 import 'wardendetails.dart';
 import 'contactus.dart';
 import 'package:tnp_portal/screens/onboard/login.dart';
 import 'studentprofile.dart';
+import 'previouscompanydata.dart';
+import 'package:tnp_portal/screens/student/fine/myfines.dart';
 
 class studenthomepage extends StatefulWidget {
   String enrollno;
@@ -278,7 +282,7 @@ class _studenthomepageState extends State<studenthomepage> {
           decoration: BoxDecoration(color: Colors.deepPurple),
           child: Center(
               child: Text(
-            'H-connect',
+            'T&P portal',
             style: TextStyle(
                 color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
           )),
@@ -317,108 +321,138 @@ class _studenthomepageState extends State<studenthomepage> {
             ),
           ),
         ),
-        // GestureDetector(
-        //   onTap: () {
-        //     // Navigator.push(
-        //     //     context,
-        //     //     MaterialPageRoute(
-        //     //         builder: (context) => myleaves(widget.enrollno)));
-        //   },
-        //   child: ListTile(
-        //     title: Row(
-        //       children: [
-        //         Container(
-        //           margin: EdgeInsets.all(10),
-        //           height: 30,
-        //           width: 30,
-        //           decoration: BoxDecoration(
-        //               shape: BoxShape.circle, color: Colors.white),
-        //           child: Center(
-        //             child: IconButton(
-        //               padding: EdgeInsets.all(5),
-        //               icon: Icon(FontAwesomeIcons.arrowRightFromBracket),
-        //               color: Colors.deepPurple,
-        //               onPressed: () {},
-        //             ),
-        //           ),
-        //         ),
-        //         SizedBox(width: 5),
-        //         Text(
-        //           'My leaves',
-        //           style: TextStyle(fontWeight: FontWeight.bold),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        // GestureDetector(
-        //   onTap: () {
-        //     // Navigator.push(
-        //     //     context,
-        //     //     MaterialPageRoute(
-        //     //         builder: (context) => mycomplaints(widget.enrollno)));
-        //   },
-        //   child: ListTile(
-        //     title: Row(
-        //       children: [
-        //         Container(
-        //           margin: EdgeInsets.all(10),
-        //           height: 30,
-        //           width: 30,
-        //           decoration: BoxDecoration(
-        //               shape: BoxShape.circle, color: Colors.white),
-        //           child: Center(
-        //             child: IconButton(
-        //               padding: EdgeInsets.all(5),
-        //               icon: Icon(FontAwesomeIcons.fileInvoice),
-        //               color: Colors.deepPurple,
-        //               onPressed: () {},
-        //             ),
-        //           ),
-        //         ),
-        //         SizedBox(width: 5),
-        //         Text(
-        //           'My Complaints',
-        //           style: TextStyle(fontWeight: FontWeight.bold),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        // GestureDetector(
-        //   onTap: () {
-        //     // Navigator.push(
-        //     //     context,
-        //     //     MaterialPageRoute(
-        //     //         builder: (context) => myfine(widget.enrollno)));
-        //   },
-        //   child: ListTile(
-        //     title: Row(
-        //       children: [
-        //         Container(
-        //           margin: EdgeInsets.all(10),
-        //           height: 30,
-        //           width: 30,
-        //           decoration: BoxDecoration(
-        //               shape: BoxShape.circle, color: Colors.white),
-        //           child: Center(
-        //             child: IconButton(
-        //               padding: EdgeInsets.all(5),
-        //               icon: Icon(FontAwesomeIcons.moneyBillTransfer),
-        //               color: Colors.deepPurple,
-        //               onPressed: () {},
-        //             ),
-        //           ),
-        //         ),
-        //         SizedBox(width: 5),
-        //         Text(
-        //           'My Fines',
-        //           style: TextStyle(fontWeight: FontWeight.bold),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => placementdata()));
+          },
+          child: ListTile(
+            title: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: Center(
+                    child: IconButton(
+                      padding: EdgeInsets.all(5),
+                      icon: Icon(FontAwesomeIcons.arrowRightFromBracket),
+                      color: Colors.deepPurple,
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Text(
+                  'Placement data',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => myfine(widget.enrollno)));
+          },
+          child: ListTile(
+            title: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: Center(
+                    child: IconButton(
+                      padding: EdgeInsets.all(5),
+                      icon: Icon(FontAwesomeIcons.moneyBillTransfer),
+                      color: Colors.deepPurple,
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Text(
+                  'My Fines',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => companypage2(widget.enrollno)));
+          },
+          child: ListTile(
+            title: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: Center(
+                    child: IconButton(
+                      padding: EdgeInsets.all(5),
+                      icon: Icon(FontAwesomeIcons.fileInvoice),
+                      color: Colors.deepPurple,
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Text(
+                  'Previous company data',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => ctc()));
+          },
+          child: ListTile(
+            title: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: Center(
+                    child: IconButton(
+                      padding: EdgeInsets.all(5),
+                      icon: Icon(FontAwesomeIcons.moneyBillTransfer),
+                      color: Colors.deepPurple,
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Text(
+                  'Ctc calculator',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
         GestureDetector(
           onTap: () {
             removeuser(context);

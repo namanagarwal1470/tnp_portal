@@ -7,6 +7,7 @@ import 'queries.dart';
 import 'students.dart';
 import 'adminprofile.dart';
 import 'allcompany.dart';
+import 'package:tnp_portal/screens/admin/finemanagement/finemanagement.dart';
 
 class adminhomepage extends StatefulWidget {
   String enrollno;
@@ -150,100 +151,52 @@ class _adminhomepageState extends State<adminhomepage> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     GestureDetector(
-                    //       onTap: () => {
-                    //         // Navigator.push(
-                    //         //     context,
-                    //         //     MaterialPageRoute(
-                    //         //         builder: (context) => rooms()))
-                    //       },
-                    //       child: Container(
-                    //           decoration: BoxDecoration(
-                    //               boxShadow: [
-                    //                 //background color of box
-                    //                 BoxShadow(
-                    //                   color: Color.fromARGB(255, 128, 89, 196),
-                    //                   // soften the shadow
-                    //                   //extend the shadow
-                    //                   spreadRadius: 1.0,
-                    //                   blurRadius: 5.0,
-                    //                   offset: Offset(
-                    //                     3.0, // Move to right 10  horizontally
-                    //                     3.0, // Move to bottom 10 Vertically
-                    //                   ),
-                    //                 )
-                    //               ],
-                    //               color: Colors.white,
-                    //               borderRadius: BorderRadius.circular(25)),
-                    //           height: 200,
-                    //           width: MediaQuery.of(context).size.width * 0.45,
-                    //           child: Column(
-                    //             mainAxisAlignment: MainAxisAlignment.center,
-                    //             crossAxisAlignment: CrossAxisAlignment.center,
-                    //             children: [
-                    //               Text(
-                    //                 "Room",
-                    //                 style: TextStyle(fontSize: 22),
-                    //               ),
-                    //               Text(
-                    //                 "Details",
-                    //                 style: TextStyle(fontSize: 22),
-                    //               ),
-                    //             ],
-                    //           )),
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () => {
-                    //         Navigator.push(
-                    //             context,
-                    //             MaterialPageRoute(
-                    //                 builder: (context) =>
-                    //                     companymanagementpage()))
-                    //       },
-                    //       child: Container(
-                    //           decoration: BoxDecoration(
-                    //               boxShadow: [
-                    //                 //background color of box
-                    //                 BoxShadow(
-                    //                   color: Color.fromARGB(255, 128, 89, 196),
-                    //                   // soften the shadow
-                    //                   //extend the shadow
-                    //                   spreadRadius: 1.0,
-                    //                   blurRadius: 5.0,
-                    //                   offset: Offset(
-                    //                     3.0, // Move to right 10  horizontally
-                    //                     3.0, // Move to bottom 10 Vertically
-                    //                   ),
-                    //                 )
-                    //               ],
-                    //               color: Colors.white,
-                    //               borderRadius: BorderRadius.circular(25)),
-                    //           height: 200,
-                    //           width: MediaQuery.of(context).size.width * 0.45,
-                    //           child: Column(
-                    //             mainAxisAlignment: MainAxisAlignment.center,
-                    //             crossAxisAlignment: CrossAxisAlignment.center,
-                    //             children: [
-                    //               Text(
-                    //                 "Company",
-                    //                 style: TextStyle(fontSize: 22),
-                    //               ),
-                    //               Text(
-                    //                 "Management",
-                    //                 style: TextStyle(fontSize: 22),
-                    //               ),
-                    //             ],
-                    //           )),
-                    //     )
-                    //   ],
-                    // ),
-                    SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => finemanagementpage()))
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    //background color of box
+                                    BoxShadow(
+                                      color: Color.fromARGB(255, 128, 89, 196),
+                                      // soften the shadow
+                                      //extend the shadow
+                                      spreadRadius: 1.0,
+                                      blurRadius: 5.0,
+                                      offset: Offset(
+                                        3.0, // Move to right 10  horizontally
+                                        3.0, // Move to bottom 10 Vertically
+                                      ),
+                                    )
+                                  ],
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(25)),
+                              height: 200,
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Fine",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  Text(
+                                    "Management",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 15),
                         GestureDetector(
                           onTap: () => {
                             Navigator.push(
@@ -270,7 +223,7 @@ class _adminhomepageState extends State<adminhomepage> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(25)),
                               height: 200,
-                              width: MediaQuery.of(context).size.width * 0.5,
+                              width: MediaQuery.of(context).size.width * 0.45,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -308,7 +261,7 @@ class _adminhomepageState extends State<adminhomepage> {
           decoration: BoxDecoration(color: Colors.deepPurple),
           child: Center(
               child: Text(
-            'H-connect',
+            'T&p portal',
             style: TextStyle(
                 color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
           )),

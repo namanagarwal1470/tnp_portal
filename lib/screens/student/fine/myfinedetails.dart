@@ -1,32 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:tnp_portal/screens/success.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tnp_portal/screens/student/companyformdetails.dart';
 
-class companyapply extends StatefulWidget {
-  String companyname;
-  String enrollno;
+class myfinedetails extends StatefulWidget {
+  String date;
+  String amount;
+  String reason;
+  String type;
   String status;
+  String enrollno;
   String docid;
-
-  companyapply(this.companyname, this.enrollno, this.status, this.docid);
+  myfinedetails(this.date, this.reason, this.status, this.amount, this.type,
+      this.enrollno, this.docid);
 
   @override
-  State<companyapply> createState() => _companyapplyState();
+  State<myfinedetails> createState() => _myfinedetailsState();
 }
 
-class _companyapplyState extends State<companyapply> {
-  var branch = '';
-  var cgpa = '';
-  var role = '';
-  var package = '';
-  var reason = '';
-
-  @override
-  void initState() {
-    super.initState();
-    fetch_all_data();
-  }
-
+class _myfinedetailsState extends State<myfinedetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,12 +39,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Company name",
+                      "Reason",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.companyname,
+                      widget.reason,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -65,12 +56,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Eligible Branches",
+                      "Amount",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      branch,
+                      widget.amount,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -82,12 +73,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Cgpa cut",
+                      "Fine type",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      cgpa,
+                      widget.type,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -99,12 +90,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Role",
+                      "Fine Created on",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      role,
+                      widget.date,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -116,34 +107,17 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Package",
+                      "Status",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      package,
+                      widget.status == "paid" ? "paid" : "notpaid",
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
                 )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Additional Information",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      reason,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            widget.status == "notfilled" ? paybutton(context) : Text("")
+            widget.status == "notpaid" ? paybutton(context) : Text("")
           ],
         )
       ]),
@@ -156,17 +130,17 @@ class _companyapplyState extends State<companyapply> {
       children: [
         GestureDetector(
           onTap: () {
+            updatedata();
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => companyapply2(widget.companyname,
-                        widget.enrollno, widget.status, widget.docid)));
+                    builder: (context) => ThankYouPage(widget.enrollno)));
           },
           child: Container(
             margin: EdgeInsets.only(top: 50),
             child: Center(
               child: Text(
-                "Apply",
+                "Pay now",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
@@ -182,49 +156,12 @@ class _companyapplyState extends State<companyapply> {
   }
 
   updatedata() async {
-    CollectionReference leaves =
-        FirebaseFirestore.instance.collection('companies');
-
-    leaves.doc(widget.docid).update({
-      'filledstudents': FieldValue.arrayUnion([widget.enrollno]),
-    });
-    setState(() {
-      final snackBar = SnackBar(
-        content: const Text('Applied Successfully!'),
-        backgroundColor: (Colors.green),
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 4000),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    });
-  }
-
-  fetch_all_data() async {
     try {
-      CollectionReference data =
-          await FirebaseFirestore.instance.collection('companies');
-
-      List<DocumentSnapshot> finedocs =
-          (await data.where("companyname", isEqualTo: widget.companyname).get())
-              .docs;
-
-      List<String> l = finedocs.map((e) => e.id as String).toList();
-      print(l);
-
-      List<String> e = finedocs.map((e) => e['companyname'] as String).toList();
-      List<String> d = finedocs.map((e) => e['package'] as String).toList();
-      List<String> r = finedocs.map((e) => e['role'] as String).toList();
-      List<String> s = finedocs.map((e) => e['branch'] as String).toList();
-      List<String> a = finedocs.map((e) => e['cgpacut'] as String).toList();
-      List<String> t =
-          finedocs.map((e) => e['additionalinformation'] as String).toList();
-      setState(() {
-        cgpa = a[0];
-        role = r[0];
-        package = d[0];
-        branch = s[0];
-        reason = t[0];
-      });
+      FirebaseFirestore _firestore = FirebaseFirestore.instance;
+      await _firestore
+          .collection('fines')
+          .doc(widget.docid)
+          .update({'status': "paid"});
     } catch (e) {
       print(e.toString());
       return [];

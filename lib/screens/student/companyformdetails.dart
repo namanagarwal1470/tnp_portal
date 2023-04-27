@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tnp_portal/screens/student/companyformdetails.dart';
 
-class companyapply extends StatefulWidget {
+class companyapply2 extends StatefulWidget {
   String companyname;
   String enrollno;
   String status;
   String docid;
 
-  companyapply(this.companyname, this.enrollno, this.status, this.docid);
+  companyapply2(this.companyname, this.enrollno, this.status, this.docid);
 
   @override
-  State<companyapply> createState() => _companyapplyState();
+  State<companyapply2> createState() => _companyapply2State();
 }
 
-class _companyapplyState extends State<companyapply> {
-  var branch = '';
+class _companyapply2State extends State<companyapply2> {
+  var name = '';
+  var email = '';
   var cgpa = '';
-  var role = '';
-  var package = '';
-  var reason = '';
+  var  branch = '';
+  var phoneno = '';
 
   @override
   void initState() {
@@ -48,12 +47,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Company name",
+                      "Name",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.companyname,
+                      name,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -65,12 +64,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Eligible Branches",
+                      "Enrollno",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      branch,
+                      widget.enrollno,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -82,7 +81,7 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Cgpa cut",
+                      "Cgpa",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
@@ -99,12 +98,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Role",
+                      "Email",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      role,
+                      email,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -116,12 +115,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Package",
+                      "Branch",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      package,
+                      branch,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -133,12 +132,12 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Additional Information",
+                      "Phone no",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      reason,
+                      phoneno,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -156,11 +155,8 @@ class _companyapplyState extends State<companyapply> {
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => companyapply2(widget.companyname,
-                        widget.enrollno, widget.status, widget.docid)));
+            updatedata();
+            Navigator.pop((context));
           },
           child: Container(
             margin: EdgeInsets.only(top: 50),
@@ -202,28 +198,27 @@ class _companyapplyState extends State<companyapply> {
   fetch_all_data() async {
     try {
       CollectionReference data =
-          await FirebaseFirestore.instance.collection('companies');
+          await FirebaseFirestore.instance.collection('users');
 
       List<DocumentSnapshot> finedocs =
-          (await data.where("companyname", isEqualTo: widget.companyname).get())
+          (await data.where("enrollno", isEqualTo: widget.enrollno).get())
               .docs;
 
       List<String> l = finedocs.map((e) => e.id as String).toList();
       print(l);
 
-      List<String> e = finedocs.map((e) => e['companyname'] as String).toList();
-      List<String> d = finedocs.map((e) => e['package'] as String).toList();
-      List<String> r = finedocs.map((e) => e['role'] as String).toList();
-      List<String> s = finedocs.map((e) => e['branch'] as String).toList();
-      List<String> a = finedocs.map((e) => e['cgpacut'] as String).toList();
-      List<String> t =
-          finedocs.map((e) => e['additionalinformation'] as String).toList();
+      List<String> e = finedocs.map((e) => e['name'] as String).toList();
+      List<String> d = finedocs.map((e) => e['cgpa'] as String).toList();
+      List<String> r = finedocs.map((e) => e['email'] as String).toList();
+      List<String> s = finedocs.map((e) => e['phoneno'] as String).toList();
+      List<String> a = finedocs.map((e) => e['branch'] as String).toList();
+    
       setState(() {
-        cgpa = a[0];
-        role = r[0];
-        package = d[0];
-        branch = s[0];
-        reason = t[0];
+        cgpa = d[0];
+        name= e[0];
+        email = r[0];
+        branch = a[0];
+        phoneno = s[0];
       });
     } catch (e) {
       print(e.toString());
