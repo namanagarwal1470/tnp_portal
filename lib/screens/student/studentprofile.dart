@@ -162,7 +162,7 @@ class _studentprofileState extends State<studentprofile> {
             margin: EdgeInsets.only(bottom: 20.0),
             child: Center(
               child: Text(
-                "Resume Edit",
+                "Edit Resume",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),

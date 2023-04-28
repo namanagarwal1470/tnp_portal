@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tnp_portal/screens/student/companyformdetails.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class companyapply extends StatefulWidget {
   String companyname;
@@ -20,6 +21,7 @@ class _companyapplyState extends State<companyapply> {
   var role = '';
   var package = '';
   var reason = '';
+  var jd = '';
 
   @override
   void initState() {
@@ -143,6 +145,35 @@ class _companyapplyState extends State<companyapply> {
                     ),
                   ],
                 )),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    launch(jd);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => pdfpage("resume", resume)));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 20.0),
+                    child: Center(
+                      child: Text(
+                        "Jd ",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.deepPurple),
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    height: 40,
+                  ),
+                ),
+              ],
+            ),
             widget.status == "notfilled" ? paybutton(context) : Text("")
           ],
         )
@@ -218,12 +249,15 @@ class _companyapplyState extends State<companyapply> {
       List<String> a = finedocs.map((e) => e['cgpacut'] as String).toList();
       List<String> t =
           finedocs.map((e) => e['additionalinformation'] as String).toList();
+      List<String> j = finedocs.map((e) => e['jd'] as String).toList();
+
       setState(() {
         cgpa = a[0];
         role = r[0];
         package = d[0];
         branch = s[0];
         reason = t[0];
+        jd = j[0];
       });
     } catch (e) {
       print(e.toString());

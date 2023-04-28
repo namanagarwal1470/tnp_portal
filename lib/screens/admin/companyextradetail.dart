@@ -19,15 +19,16 @@ class _companymanagementpage2State extends State<companymanagementpage2> {
   List companyname = [
     "Company Information",
     "filled students",
-    "Initial Shortlisted Students",
-    'OA cleared students',
-    "Interview Cleared Students"
+    "OA Shortlisted Students",
+    'Interview Shortlisted students',
+    "Placed Students"
   ];
   var package = '';
   var role = '';
   var additional = '';
   var branch = '';
   var cgpacut = '';
+  var jd = '';
   bool isloading = true;
 
   @override
@@ -82,7 +83,7 @@ class _companymanagementpage2State extends State<companymanagementpage2> {
                             itemCount: companyname.length,
                             itemBuilder: (context, index) {
                               return Cont(companyname[index], package, role,
-                                  additional, branch, cgpacut, index);
+                                  additional, branch, cgpacut, index, jd);
                             })),
               ),
             ],
@@ -91,15 +92,15 @@ class _companymanagementpage2State extends State<companymanagementpage2> {
   }
 
   Widget Cont(String text1, String text2, String text3, String text4,
-      String text5, String text6, int index) {
+      String text5, String text6, int index, String text7) {
     return GestureDetector(
       onTap: () {
         if (index == 0) {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => myleavedetails(
-                      widget.companyname, text2, text3, text4, text5, text6)));
+                  builder: (context) => myleavedetails(widget.companyname,
+                      text2, text3, text4, text5, text6, text7)));
         } else if (index == 1) {
           Navigator.push(
               context,
@@ -162,6 +163,7 @@ class _companymanagementpage2State extends State<companymanagementpage2> {
       List<String> a = finedocs.map((e) => e['cgpacut'] as String).toList();
       List<String> t =
           finedocs.map((e) => e['additionalinformation'] as String).toList();
+      List<String> j = finedocs.map((e) => e['jd'] as String).toList();
       setState(() {
         cgpacut = a[0];
         role = r[0];
@@ -169,6 +171,7 @@ class _companymanagementpage2State extends State<companymanagementpage2> {
         branch = s[0];
         additional = t[0];
         isloading = false;
+        jd = j[0];
       });
     } catch (e) {
       print(e.toString());

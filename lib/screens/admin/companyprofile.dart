@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class myleavedetails extends StatefulWidget {
   String companyname;
-   String package;
+  String package;
   String role;
   String reason;
   String branch;
   String cgpa;
+  String jd;
 
-  myleavedetails(
-    this.companyname,
-    this.package, this.role, this.reason,
-        this.branch, this.cgpa
-  );
+  myleavedetails(this.companyname, this.package, this.role, this.reason,
+      this.branch, this.cgpa, this.jd);
 
   @override
   State<myleavedetails> createState() => _myleavedetailsState();
@@ -136,6 +135,35 @@ class _myleavedetailsState extends State<myleavedetails> {
                     ),
                   ],
                 )),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    launch(widget.jd);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => pdfpage("resume", resume)));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 20.0, left: 20.0),
+                    child: Center(
+                      child: Text(
+                        "JD ",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.deepPurple),
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    height: 40,
+                  ),
+                ),
+              ],
+            ),
           ],
         )
       ]),

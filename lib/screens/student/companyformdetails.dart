@@ -198,7 +198,7 @@ class _companyapply2State extends State<companyapply2> {
           child: Container(
             child: Center(
               child: Text(
-                "Resume Edit",
+                "Edit Resume",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),

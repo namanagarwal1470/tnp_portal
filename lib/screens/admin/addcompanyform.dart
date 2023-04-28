@@ -18,6 +18,7 @@ class _companyFormState extends State<companyForm> {
   TextEditingController cgpa = TextEditingController();
   TextEditingController branches = TextEditingController();
   TextEditingController reason = TextEditingController();
+  TextEditingController jd = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -127,6 +128,21 @@ class _companyFormState extends State<companyForm> {
         ),
         SizedBox(height: 20),
         TextField(
+          decoration: InputDecoration(
+            border: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+            filled: true,
+            hintText: 'JD link',
+            labelText: 'JD link',
+          ),
+          keyboardType: TextInputType.text,
+          controller: jd,
+        ),
+        SizedBox(height: 20),
+        TextField(
           maxLines: null,
           minLines: 6,
           keyboardType: TextInputType.multiline,
@@ -196,7 +212,8 @@ class _companyFormState extends State<companyForm> {
       'initialshortlistedstudents': FieldValue.arrayUnion(["19103045"]),
       'oaclearedstudents': FieldValue.arrayUnion(["19103045"]),
       'interviewclearedstudents': FieldValue.arrayUnion(["19103045"]),
-      'additionalinformation': reason.text
+      'additionalinformation': reason.text,
+      'jd': jd.text
     });
     setState(() {
       branches.clear();
