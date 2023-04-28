@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tnp_portal/screens/student/ctccalculator.dart';
+import 'package:tnp_portal/screens/student/myqueries.dart';
 import 'package:tnp_portal/screens/student/placementdata.dart';
 import 'allcompanies.dart';
 import 'wardendetails.dart';
@@ -116,7 +117,7 @@ class _studenthomepageState extends State<studenthomepage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ComplainForm("19103047")))
+                                        ComplainForm(widget.enrollno)))
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -315,6 +316,38 @@ class _studenthomepageState extends State<studenthomepage> {
                 SizedBox(width: 5),
                 Text(
                   'Profile',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => mycomplaints(widget.enrollno)));
+          },
+          child: ListTile(
+            title: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: Center(
+                    child: IconButton(
+                      padding: EdgeInsets.all(5),
+                      icon: Icon(FontAwesomeIcons.arrowRightFromBracket),
+                      color: Colors.deepPurple,
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Text(
+                  'My queries',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],

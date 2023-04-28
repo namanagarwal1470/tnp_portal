@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class companyapply2 extends StatefulWidget {
   String companyname;
@@ -17,12 +18,15 @@ class _companyapply2State extends State<companyapply2> {
   var name = '';
   var email = '';
   var cgpa = '';
-  var  branch = '';
+  var branch = '';
   var phoneno = '';
+  var resume = '';
+  bool show = false;
+  TextEditingController resume2 = TextEditingController();
 
   @override
   void initState() {
-    super.initState();
+   
     fetch_all_data();
   }
 
@@ -142,10 +146,152 @@ class _companyapply2State extends State<companyapply2> {
                     ),
                   ],
                 )),
+            SizedBox(height: 20),
+            !show ? Submitbutton(context) : textfieldbutton(context),
+            show ? resumeupdate(context) : Text(""),
             widget.status == "notfilled" ? paybutton(context) : Text("")
           ],
         )
       ]),
+    );
+  }
+
+  Widget Submitbutton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        GestureDetector(
+          onTap: () {
+            launchurl(resume);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => pdfpage("resume", resume)));
+          },
+          child: Container(
+            child: Center(
+              child: Text(
+                "Resume ",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: 40,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              show = true;
+            });
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => pdfpage("resume", resume)));
+          },
+          child: Container(
+            child: Center(
+              child: Text(
+                "Resume Edit",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
+            width: MediaQuery.of(context).size.width * 0.35,
+            height: 40,
+          ),
+        ),
+      ],
+    );
+  }
+
+  launchurl(String url) async {
+    print(url);
+    if (await canLaunch(url)) {
+      print(url);
+      await launch(url);
+    } else {
+      throw "could not open resume";
+    }
+  }
+
+  Widget resumeupdate(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            updatedata2();
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => pdfpage("resume", resume)));
+          },
+          child: Container(
+            margin: EdgeInsets.only(bottom: 20.0),
+            child: Center(
+              child: Text(
+                "Update",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: 40,
+          ),
+        ),
+      ],
+    );
+  }
+
+  updatedata2() async {
+    CollectionReference leaves = FirebaseFirestore.instance.collection('users');
+    List<DocumentSnapshot> studentdocs =
+        (await leaves.where("enrollno", isEqualTo: widget.enrollno).get()).docs;
+    List<String> l = studentdocs.map((e) => e.id as String).toList();
+
+    leaves.doc(l[0]).update({
+      'resume': resume2.text,
+    });
+    setState(() {
+      final snackBar = SnackBar(
+        content: const Text('Updated Successfully!'),
+        backgroundColor: (Colors.green),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 4000),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      show = false;
+      initState();
+    });
+  }
+
+  Widget textfieldbutton(BuildContext context) {
+    return Container(
+      height: 60,
+      width: double.infinity,
+      margin: EdgeInsets.only(right: 30, left: 30, bottom: 30),
+      child: TextField(
+        decoration: InputDecoration(
+          border: new OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+          ),
+          filled: true,
+          hintText: 'Resume link',
+          labelText: 'Resume link',
+        ),
+        keyboardType: TextInputType.text,
+        controller: resume2,
+      ),
     );
   }
 
@@ -159,7 +305,7 @@ class _companyapply2State extends State<companyapply2> {
             Navigator.pop((context));
           },
           child: Container(
-            margin: EdgeInsets.only(top: 50),
+            margin: EdgeInsets.only(top: 30),
             child: Center(
               child: Text(
                 "Apply",
@@ -201,8 +347,7 @@ class _companyapply2State extends State<companyapply2> {
           await FirebaseFirestore.instance.collection('users');
 
       List<DocumentSnapshot> finedocs =
-          (await data.where("enrollno", isEqualTo: widget.enrollno).get())
-              .docs;
+          (await data.where("enrollno", isEqualTo: widget.enrollno).get()).docs;
 
       List<String> l = finedocs.map((e) => e.id as String).toList();
       print(l);
@@ -212,13 +357,15 @@ class _companyapply2State extends State<companyapply2> {
       List<String> r = finedocs.map((e) => e['email'] as String).toList();
       List<String> s = finedocs.map((e) => e['phoneno'] as String).toList();
       List<String> a = finedocs.map((e) => e['branch'] as String).toList();
-    
+      List<String> k = finedocs.map((e) => e['resume'] as String).toList();
+
       setState(() {
         cgpa = d[0];
-        name= e[0];
+        name = e[0];
         email = r[0];
         branch = a[0];
         phoneno = s[0];
+        resume = k[0];
       });
     } catch (e) {
       print(e.toString());

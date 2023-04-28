@@ -22,7 +22,8 @@ class _studentprofile2State extends State<studentprofile2> {
   // String localguardianname = '';
   // String localguardianmobile = '';
   String address = '';
-  
+  String resume = '';
+
   bool isloading = true;
 
   @override
@@ -107,6 +108,9 @@ class _studentprofile2State extends State<studentprofile2> {
               textcontainer(
                   h_factor * 23, w_factor * 312, h_factor * 16, "Address:"),
               textfield(h_factor * 50, w_factor * 312, true, address),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "Resume link:"),
+              textfield(h_factor * 50, w_factor * 312, true, resume),
             ],
           )
         ]),
@@ -186,6 +190,7 @@ class _studentprofile2State extends State<studentprofile2> {
       List<String> pno = leavesdocs.map((e) => e['phoneno'] as String).toList();
       // List<String> rn = leavesdocs.map((e) => e['roomno'] as String).toList();
       List<String> y = leavesdocs.map((e) => e['year'] as String).toList();
+      List<String> r = leavesdocs.map((e) => e['resume'] as String).toList();
       setState(() {
         name = nm[0];
         dob = db[0];
@@ -202,6 +207,7 @@ class _studentprofile2State extends State<studentprofile2> {
         // localguardianname = lgn[0];
         // localguardianmobile = lgp[0];
         address = ad[0];
+        resume = r[0];
         isloading = false;
       });
     } catch (e) {

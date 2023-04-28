@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tnp_portal/screens/resumeshow.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class studentprofile extends StatefulWidget {
   String enrollno;
@@ -24,12 +25,13 @@ class _studentprofileState extends State<studentprofile> {
   // String localguardianname = '';
   // String localguardianmobile = '';
   String address = '';
+  TextEditingController resume2 = TextEditingController();
 
   bool isloading = true;
+  bool show = false;
 
   @override
   void initState() {
-    super.initState();
     fetch_all_data();
   }
 
@@ -110,7 +112,8 @@ class _studentprofileState extends State<studentprofile> {
                   h_factor * 23, w_factor * 312, h_factor * 16, "Address:"),
               textfield(h_factor * 50, w_factor * 312, true, address),
               SizedBox(height: 20),
-              Submitbutton(context),
+              !show ? Submitbutton(context) : textfieldbutton(context),
+              show ? resumeupdate(context) : Text("")
             ],
           )
         ]),
@@ -120,19 +123,87 @@ class _studentprofileState extends State<studentprofile> {
 
   Widget Submitbutton(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
           onTap: () {
+            launchurl(resume);
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(
             //         builder: (context) => pdfpage("resume", resume)));
           },
           child: Container(
+            margin: EdgeInsets.only(bottom: 20.0),
             child: Center(
               child: Text(
-                "Resume",
+                "Resume ",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: 40,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              show = true;
+            });
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => pdfpage("resume", resume)));
+          },
+          child: Container(
+            margin: EdgeInsets.only(bottom: 20.0),
+            child: Center(
+              child: Text(
+                "Resume Edit",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
+            width: MediaQuery.of(context).size.width * 0.35,
+            height: 40,
+          ),
+        ),
+      ],
+    );
+  }
+
+  launchurl(String url) async {
+    print(url);
+    if (await canLaunch(url)) {
+      print(url);
+      await launch(url);
+    } else {
+      throw "could not open resume";
+    }
+  }
+
+  Widget resumeupdate(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            updatedata();
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => pdfpage("resume", resume)));
+          },
+          child: Container(
+            margin: EdgeInsets.only(bottom: 20.0),
+            child: Center(
+              child: Text(
+                "Update",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
@@ -144,6 +215,50 @@ class _studentprofileState extends State<studentprofile> {
           ),
         ),
       ],
+    );
+  }
+
+  updatedata() async {
+    CollectionReference leaves = FirebaseFirestore.instance.collection('users');
+    List<DocumentSnapshot> studentdocs =
+        (await leaves.where("enrollno", isEqualTo: widget.enrollno).get()).docs;
+    List<String> l = studentdocs.map((e) => e.id as String).toList();
+
+    leaves.doc(l[0]).update({
+      'resume': resume2.text,
+    });
+    setState(() {
+      final snackBar = SnackBar(
+        content: const Text('Updated Successfully!'),
+        backgroundColor: (Colors.green),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: 4000),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      show = false;
+      initState();
+    });
+  }
+
+  Widget textfieldbutton(BuildContext context) {
+    return Container(
+      height: 60,
+      width: double.infinity,
+      margin: EdgeInsets.only(right: 30, left: 30, bottom: 30),
+      child: TextField(
+        decoration: InputDecoration(
+          border: new OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+          ),
+          filled: true,
+          hintText: 'Resume link',
+          labelText: 'Resume link',
+        ),
+        keyboardType: TextInputType.text,
+        controller: resume2,
+      ),
     );
   }
 

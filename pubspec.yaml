@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore:
   shared_preferences:
   font_awesome_flutter:
+  url_launcher:
   
 
 dev_dependencies:

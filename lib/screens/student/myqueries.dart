@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'querydetails.dart';
+import 'mycomplaintdetails.dart';
+import 'companyform.dart';
+import 'allcompanies.dart';
+import 'wardendetails.dart';
+import 'contactus.dart';
 
-class complaintpage extends StatefulWidget {
-  complaintpage({Key? key}) : super(key: key);
+class mycomplaints extends StatefulWidget {
+  String enrollno;
+  mycomplaints(this.enrollno);
 
   @override
-  _complaintpageState createState() => _complaintpageState();
+  _mycomplaintsState createState() => _mycomplaintsState();
 }
 
-class _complaintpageState extends State<complaintpage> {
+class _mycomplaintsState extends State<mycomplaints> {
   List enrollno = [];
 
   List complaint = [];
@@ -19,7 +24,6 @@ class _complaintpageState extends State<complaintpage> {
   List status = [];
   List type = [];
   List docid = [];
-
   bool isloading = true;
 
   @override
@@ -47,14 +51,17 @@ class _complaintpageState extends State<complaintpage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   arrowbackbutton(context),
                   Container(
                     height: (MediaQuery.of(context).size.height) * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.6,
                     margin: EdgeInsets.only(left: 10, top: 50),
-                    child: Text("All Queries",
+                    child: Text("My Queries",
                         style: TextStyle(color: Colors.white, fontSize: 30)),
                   ),
+                  Createcomplaint(context)
                 ],
               ),
               Expanded(
@@ -84,21 +91,21 @@ class _complaintpageState extends State<complaintpage> {
         ));
   }
 
-  Widget Cont(String text1, String text2, String text3, String text4,
-      String text5, String text6) {
+  Widget Cont(String text2, String text3, String text4, String text6,
+      String text1, String text7) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => studentcomplaint(
-                    text1, text2, text3, text4, text5, text6)));
+                builder: (context) => mycomplaintdetails(
+                    text2, text3, text4, text6, text1, text7)));
       },
       child: Container(
           height: 80,
           margin: EdgeInsets.only(left: 15, right: 15, top: 12),
           decoration: BoxDecoration(
-              color: text5 == "true" ? Colors.green[300] : Colors.red[300],
+              color: text1 == "true" ? Colors.green[300] : Colors.red[300],
               borderRadius: BorderRadius.circular(30)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +115,7 @@ class _complaintpageState extends State<complaintpage> {
                 child: Container(
                   margin: EdgeInsets.only(left: 20),
                   child: Text(
-                    text2,
+                    text3,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
@@ -121,7 +128,7 @@ class _complaintpageState extends State<complaintpage> {
               Container(
                 margin: EdgeInsets.only(left: 20),
                 child: Text(
-                  "Enrollno: " + text1,
+                  "Date: " + text4,
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ),
@@ -134,7 +141,8 @@ class _complaintpageState extends State<complaintpage> {
     try {
       CollectionReference data =
           await FirebaseFirestore.instance.collection('contactus');
-      List<DocumentSnapshot> complaintdocs = (await data.get()).docs;
+      List<DocumentSnapshot> complaintdocs =
+          (await data.where('enrollno', isEqualTo: widget.enrollno).get()).docs;
       List<String> e =
           complaintdocs.map((e) => e['enrollno'] as String).toList();
       List<String> c = complaintdocs.map((e) => e['query'] as String).toList();
@@ -142,7 +150,6 @@ class _complaintpageState extends State<complaintpage> {
       List<String> d = complaintdocs.map((e) => e['date'] as String).toList();
       List<String> r = complaintdocs.map((e) => e['status'] as String).toList();
       List<String> s = complaintdocs.map((e) => e.id as String).toList();
-
       setState(() {
         enrollno = e;
 
@@ -152,9 +159,6 @@ class _complaintpageState extends State<complaintpage> {
         type = t;
         status = r;
         docid = s;
-
-        // status = s;
-
         isloading = false;
       });
     } catch (e) {
@@ -176,6 +180,30 @@ class _complaintpageState extends State<complaintpage> {
           color: Colors.white,
           onPressed: () {
             Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget Createcomplaint(BuildContext context) {
+    return Container(
+      height: 40,
+      width: 40,
+      margin: EdgeInsets.only(top: 20),
+      child: Ink(
+        decoration: ShapeDecoration(
+          color: Colors.white,
+          shape: CircleBorder(),
+        ),
+        child: IconButton(
+          icon: Icon(Icons.add),
+          color: Colors.deepPurple,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ComplainForm(widget.enrollno)));
           },
         ),
       ),
