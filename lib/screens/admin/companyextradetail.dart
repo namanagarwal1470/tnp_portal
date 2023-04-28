@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tnp_portal/screens/admin/companyprofile.dart';
 import 'addcompanyform.dart';
+import 'filledstudents.dart';
+import 'shortlistedstudents.dart';
+import 'oacleared.dart';
+import 'interviewcleared.dart';
 
 class companymanagementpage2 extends StatefulWidget {
   String companyname;
@@ -96,6 +100,26 @@ class _companymanagementpage2State extends State<companymanagementpage2> {
               MaterialPageRoute(
                   builder: (context) => myleavedetails(
                       widget.companyname, text2, text3, text4, text5, text6)));
+        } else if (index == 1) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => studentpage2(widget.companyname)));
+        } else if (index == 2) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => studentpage3(widget.companyname)));
+        } else if (index == 3) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => studentpage4(widget.companyname)));
+        } else if (index == 4) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => studentpage5(widget.companyname)));
         }
       },
       child: Container(

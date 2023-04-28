@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tnp_portal/screens/resumeshow.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class studentprofile extends StatefulWidget {
@@ -127,7 +127,7 @@ class _studentprofileState extends State<studentprofile> {
       children: [
         GestureDetector(
           onTap: () {
-            launchurl(resume);
+            launch(resume);
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(
@@ -175,16 +175,6 @@ class _studentprofileState extends State<studentprofile> {
         ),
       ],
     );
-  }
-
-  launchurl(String url) async {
-    print(url);
-    if (await canLaunch(url)) {
-      print(url);
-      await launch(url);
-    } else {
-      throw "could not open resume";
-    }
   }
 
   Widget resumeupdate(BuildContext context) {

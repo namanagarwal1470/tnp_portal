@@ -26,7 +26,6 @@ class _companyapply2State extends State<companyapply2> {
 
   @override
   void initState() {
-   
     fetch_all_data();
   }
 
@@ -162,7 +161,7 @@ class _companyapply2State extends State<companyapply2> {
       children: [
         GestureDetector(
           onTap: () {
-            launchurl(resume);
+            launch(resume);
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(
@@ -208,16 +207,6 @@ class _companyapply2State extends State<companyapply2> {
         ),
       ],
     );
-  }
-
-  launchurl(String url) async {
-    print(url);
-    if (await canLaunch(url)) {
-      print(url);
-      await launch(url);
-    } else {
-      throw "could not open resume";
-    }
   }
 
   Widget resumeupdate(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class studentprofile2 extends StatefulWidget {
   String enrollno;
@@ -108,9 +109,29 @@ class _studentprofile2State extends State<studentprofile2> {
               textcontainer(
                   h_factor * 23, w_factor * 312, h_factor * 16, "Address:"),
               textfield(h_factor * 50, w_factor * 312, true, address),
-              textcontainer(
-                  h_factor * 23, w_factor * 312, h_factor * 16, "Resume link:"),
-              textfield(h_factor * 50, w_factor * 312, true, resume),
+              GestureDetector(
+                onTap: () {
+                  launch(resume);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => pdfpage("resume", resume)));
+                },
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 20.0),
+                  child: Center(
+                    child: Text(
+                      "Resume ",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.deepPurple),
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  height: 40,
+                ),
+              ),
             ],
           )
         ]),
