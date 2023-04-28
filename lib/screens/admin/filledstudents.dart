@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tnp_portal/screens/admin/studentcompanyfilldata.dart';
 import 'package:tnp_portal/screens/admin/studentdetails.dart';
 
 class studentpage2 extends StatefulWidget {
@@ -152,8 +153,8 @@ class _studentpage2State extends State<studentpage2> {
   Widget Cont(String text1) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => studentprofile2(text1)));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) =>companyapply3(text1,widget.companyname)));
       },
       child: Container(
           height: 80,
