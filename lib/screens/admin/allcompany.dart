@@ -13,13 +13,50 @@ class companymanagementpage extends StatefulWidget {
 
 class _companymanagementpageState extends State<companymanagementpage> {
   List companyname = [];
+  List status = [];
+  List companyname2 = [];
+  TextEditingController editingController = TextEditingController();
+  List status2 = [];
+  int inprocesscount = 0;
+  int completedcount = 0;
 
   bool isloading = true;
 
   @override
   void initState() {
-    super.initState();
     fetch_all_data();
+  }
+
+  void filterSearchResults(String query) {
+    var dummySearchList = [];
+    dummySearchList.addAll(companyname2);
+    if (query.toLowerCase().isNotEmpty) {
+      List<String> dummyListData = [];
+      List<String> dummystatusdata = [];
+
+      dummySearchList.forEach((item) {
+        if (item.toLowerCase().contains(query)) {
+          dummyListData.add(item);
+          dummystatusdata.add(status2[companyname2.indexOf(item)]);
+        }
+      });
+      setState(() {
+        companyname.clear();
+        status.clear();
+
+        companyname.addAll(dummyListData);
+        status.addAll(dummystatusdata);
+      });
+      return;
+    } else {
+      setState(() {
+        companyname.clear();
+        status.clear();
+
+        companyname = List.from(companyname2);
+        status = List.from(status2);
+      });
+    }
   }
 
   @override
@@ -41,19 +78,62 @@ class _companymanagementpageState extends State<companymanagementpage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   arrowbackbutton(context),
                   Container(
                     height: (MediaQuery.of(context).size.height) * 0.1,
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    margin: EdgeInsets.only(top: 50),
+                    margin: EdgeInsets.only(left: 10, top: 50),
                     child: Text("All Companies",
                         style: TextStyle(color: Colors.white, fontSize: 30)),
                   ),
-                  Createfine(context)
                 ],
               ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 30.0, right: 30.0, bottom: 20.0),
+                child: TextField(
+                  cursorColor: Colors.white,
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    filterSearchResults(value);
+                  },
+                  controller: editingController,
+                  decoration: InputDecoration(
+                      iconColor: Colors.white,
+                      labelText: "Search",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintStyle: TextStyle(color: Colors.black),
+                      hintText: "Search",
+                      prefixIcon: Icon(Icons.search, color: Colors.white),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 2.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(40.0))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 2.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(40.0)))),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    child: Text(
+                      "inprocess: " + inprocesscount.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    child: Text("completed: " + completedcount.toString(),
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
               Expanded(
                 flex: 1,
                 child: Container(
@@ -69,6 +149,7 @@ class _companymanagementpageState extends State<companymanagementpage> {
                             itemBuilder: (context, index) {
                               return Cont(
                                 companyname[index],
+                                status[index],
                               );
                             })),
               ),
@@ -77,7 +158,7 @@ class _companymanagementpageState extends State<companymanagementpage> {
         ));
   }
 
-  Widget Cont(String text1) {
+  Widget Cont(String text1, String text2) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -89,9 +170,7 @@ class _companymanagementpageState extends State<companymanagementpage> {
           height: 60,
           margin: EdgeInsets.only(left: 15, right: 15, top: 12),
           decoration: BoxDecoration(
-              color:
-                  //  text2 == "filled" ? Colors.green[300] :
-                  Colors.grey[300],
+              color: text2 == "inprocess" ? Colors.yellow[300] : Colors.green,
               borderRadius: BorderRadius.circular(40)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,10 +197,25 @@ class _companymanagementpageState extends State<companymanagementpage> {
       print(l);
 
       List<String> e = finedocs.map((e) => e['companyname'] as String).toList();
+      List<String> s = finedocs.map((e) => e['status'] as String).toList();
+      int incount = 0;
+      int cocount = 0;
+
+      for (var i in s) {
+        if (i == "inprocess") {
+          incount += 1;
+        } else {
+          cocount += 1;
+        }
+      }
 
       setState(() {
         companyname = e;
-
+        companyname2 = List.from(companyname);
+        status = s;
+        status2 = List.from(status);
+        inprocesscount = incount;
+        completedcount = cocount;
         isloading = false;
       });
     } catch (e) {

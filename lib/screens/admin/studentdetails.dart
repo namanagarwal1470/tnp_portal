@@ -4,7 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class studentprofile2 extends StatefulWidget {
   String enrollno;
-  studentprofile2(this.enrollno);
+  String status;
+  studentprofile2(this.enrollno, this.status);
 
   @override
   State<studentprofile2> createState() => _studentprofile2State();
@@ -24,6 +25,7 @@ class _studentprofile2State extends State<studentprofile2> {
   // String localguardianmobile = '';
   String address = '';
   String resume = '';
+  String placedcompany = '';
 
   bool isloading = true;
 
@@ -109,6 +111,15 @@ class _studentprofile2State extends State<studentprofile2> {
               textcontainer(
                   h_factor * 23, w_factor * 312, h_factor * 16, "Address:"),
               textfield(h_factor * 50, w_factor * 312, true, address),
+              widget.status == 'placed'
+                  ? textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
+                      "Placed Company:")
+                  : Text(""),
+              widget.status == 'placed'
+                  ? textfield(
+                      h_factor * 50, w_factor * 312, true, placedcompany)
+                  : Text(""),
+
               GestureDetector(
                 onTap: () {
                   launch(resume);
@@ -212,6 +223,9 @@ class _studentprofile2State extends State<studentprofile2> {
       // List<String> rn = leavesdocs.map((e) => e['roomno'] as String).toList();
       List<String> y = leavesdocs.map((e) => e['year'] as String).toList();
       List<String> r = leavesdocs.map((e) => e['resume'] as String).toList();
+      List<String> pc =
+          leavesdocs.map((e) => e['placedcompany'] as String).toList();
+
       setState(() {
         name = nm[0];
         dob = db[0];
@@ -229,6 +243,7 @@ class _studentprofile2State extends State<studentprofile2> {
         // localguardianmobile = lgp[0];
         address = ad[0];
         resume = r[0];
+        placedcompany = pc[0];
         isloading = false;
       });
     } catch (e) {

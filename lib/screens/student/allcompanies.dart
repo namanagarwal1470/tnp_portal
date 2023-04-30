@@ -17,7 +17,7 @@ class _companypageState extends State<companypage> {
   List companyname = [];
   List companyname2 = [];
   List docid = [];
-  List docid2=[];
+  List docid2 = [];
   List status = [];
   List status2 = [];
   var filledcount;
@@ -41,7 +41,6 @@ class _companypageState extends State<companypage> {
           dummyListData.add(item);
           dummystatusdata.add(status2[companyname2.indexOf(item)]);
           dummydocdata.add(docid2[companyname2.indexOf(item)]);
-
         }
       });
       setState(() {
@@ -60,7 +59,7 @@ class _companypageState extends State<companypage> {
         docid.clear();
         companyname = List.from(companyname2);
         status = List.from(status2);
-        docid=List.from(docid2);
+        docid = List.from(docid2);
       });
     }
   }
@@ -165,11 +164,11 @@ class _companypageState extends State<companypage> {
   Widget Cont(String text1, String text2, String text3) {
     return GestureDetector(
       onTap: () {
-        
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => companyapply(text1, widget.enrollno,text2,text3)));
+                builder: (context) =>
+                    companyapply(text1, widget.enrollno, text2, text3)));
       },
       child: Container(
           height: 60,
@@ -237,7 +236,7 @@ class _companypageState extends State<companypage> {
 
         status2 = List.from(status);
         docid = l;
-        docid2=List.from(docid);
+        docid2 = List.from(docid);
         isloading = false;
         filledcount = filled;
         notfilledcount = notfilled;

@@ -13,6 +13,8 @@ class studentpage4 extends StatefulWidget {
 class _studentpage4State extends State<studentpage4> {
   List enrollno = [];
   List enrollno2 = [];
+  List status = [];
+  List status2 = [];
 
   bool isloading = true;
   int totalcount = 0;
@@ -29,14 +31,18 @@ class _studentpage4State extends State<studentpage4> {
     dummySearchList.addAll(enrollno2);
     if (query.toLowerCase().isNotEmpty) {
       List<String> dummyenrolldata = [];
+      List<bool> dummystatusdata = [];
 
       dummySearchList.forEach((item) {
         if (item.toLowerCase().contains(query)) {
           dummyenrolldata.add(item);
+          dummystatusdata.add(status2[enrollno2.indexOf(item)]);
         }
       });
       setState(() {
         enrollno.clear();
+        status.clear();
+        status.addAll(dummystatusdata);
 
         enrollno.addAll(dummyenrolldata);
       });
@@ -44,8 +50,9 @@ class _studentpage4State extends State<studentpage4> {
     } else {
       setState(() {
         enrollno.clear();
-
+        status.clear();
         enrollno = List.from(enrollno2);
+        status = List.from(status2);
       });
     }
   }
@@ -138,7 +145,8 @@ class _studentpage4State extends State<studentpage4> {
                             ? ListView.builder(
                                 itemCount: enrollno.length,
                                 itemBuilder: (context, index) {
-                                  return Cont(enrollno[index]);
+                                  return Cont(
+                                      enrollno[index], status[index], index);
                                 })
                             : Center(child: Text("no students to show"))),
               ),
@@ -147,24 +155,28 @@ class _studentpage4State extends State<studentpage4> {
         ));
   }
 
-  Widget Cont(String text1) {
+  Widget Cont(String text1, var text2, var index) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => studentprofile2(text1)));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) =>
+        //             companyapply3(text1, widget.companyname)));
       },
       child: Container(
           height: 80,
           margin: EdgeInsets.only(left: 15, right: 15, top: 10),
           decoration: BoxDecoration(
               color: Colors.grey[300], borderRadius: BorderRadius.circular(30)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Flexible(
                 child: Container(
-                  margin: EdgeInsets.only(left: 20),
+                  margin: EdgeInsets.only(
+                      left: 15, right: MediaQuery.of(context).size.width * 0.3),
                   child: Text(
                     text1,
                     overflow: TextOverflow.ellipsis,
@@ -176,6 +188,22 @@ class _studentpage4State extends State<studentpage4> {
                   ),
                 ),
               ),
+              Center(
+                child: IconButton(
+                  padding: EdgeInsets.all(5),
+                  icon: Icon(Icons.check_circle_outlined),
+                  color: !text2 ? Colors.red : Colors.green,
+                  iconSize: 40,
+                  onPressed: () {
+                    updatedata2(text1);
+                    setState(() {
+                      status[index] = true;
+                    });
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => start2()));
+                  },
+                ),
+              )
             ],
           )),
     );
@@ -192,17 +220,31 @@ class _studentpage4State extends State<studentpage4> {
 
       var p = [];
       var s = [];
+      var l = [];
+      var e = [];
       for (var i in studentdocs) {
         p.add(i["oaclearedstudents"]);
+        e.add(i['interviewclearedstudents']);
       }
       for (var i in p[0]) {
         if (i.toString() != "19103045") {
           s.add(i.toString());
         }
       }
+      for (var i in s) {
+        for (var j in e[0]) {
+          if (i == j) {
+            l.add(true);
+            break;
+          }
+        }
+        l.add(false);
+      }
 
       setState(() {
         enrollno = s;
+        status = l;
+        status2 = List.from(status);
 
         enrollno2 = List.from(enrollno);
         totalcount = enrollno.length;
@@ -232,5 +274,28 @@ class _studentpage4State extends State<studentpage4> {
         ),
       ),
     );
+  }
+
+  updatedata2(var text1) async {
+    CollectionReference leaves =
+        FirebaseFirestore.instance.collection('companies');
+    CollectionReference leaves2 =
+        FirebaseFirestore.instance.collection('users');
+    List<DocumentSnapshot> studentdocs =
+        (await leaves.where("companyname", isEqualTo: widget.companyname).get())
+            .docs;
+    List<DocumentSnapshot> student2docs =
+        (await leaves2.where("enrollno", isEqualTo: text1).get()).docs;
+    List<String> l = studentdocs.map((e) => e.id as String).toList();
+    List<String> l2 = student2docs.map((e) => e.id as String).toList();
+    print(l2[0]);
+
+    leaves.doc(l[0]).update({
+      'interviewclearedstudents': FieldValue.arrayUnion([text1]),
+      'status': "completed"
+    });
+    leaves2
+        .doc(l2[0])
+        .update({"placedcompany": widget.companyname, "status": "placed"});
   }
 }

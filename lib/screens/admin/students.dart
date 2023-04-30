@@ -164,8 +164,10 @@ class _studentpageState extends State<studentpage> {
   Widget Cont(String text1, String text2, String text3) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => studentprofile2(text1)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => studentprofile2(text1, text3)));
       },
       child: Container(
           height: 80,
