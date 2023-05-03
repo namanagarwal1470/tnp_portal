@@ -213,7 +213,8 @@ class _companyFormState extends State<companyForm> {
       'oaclearedstudents': FieldValue.arrayUnion(["19103045"]),
       'interviewclearedstudents': FieldValue.arrayUnion(["19103045"]),
       'additionalinformation': reason.text,
-      'jd': jd.text
+      'jd': jd.text,
+      'status':'inprocess'
     });
     setState(() {
       branches.clear();

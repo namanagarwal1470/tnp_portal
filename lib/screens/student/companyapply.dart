@@ -22,6 +22,7 @@ class _companyapplyState extends State<companyapply> {
   var package = '';
   var reason = '';
   var jd = '';
+  var finalstatus = '';
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Company name",
+                      "Company Name",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
@@ -84,7 +85,7 @@ class _companyapplyState extends State<companyapply> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Cgpa cut",
+                      "Cgpa ",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
@@ -145,6 +146,25 @@ class _companyapplyState extends State<companyapply> {
                     ),
                   ],
                 )),
+            widget.status == "filled"
+                ? Container(
+                    margin: EdgeInsets.only(left: 15, top: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "My Status",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          finalstatus,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ))
+                : Text(""),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -161,7 +181,7 @@ class _companyapplyState extends State<companyapply> {
                     margin: EdgeInsets.only(left: 20.0),
                     child: Center(
                       child: Text(
-                        "Jd ",
+                        "JD ",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
@@ -174,6 +194,7 @@ class _companyapplyState extends State<companyapply> {
                 ),
               ],
             ),
+            SizedBox(height: 20),
             widget.status == "notfilled" ? paybutton(context) : Text("")
           ],
         )
@@ -250,6 +271,50 @@ class _companyapplyState extends State<companyapply> {
       List<String> t =
           finedocs.map((e) => e['additionalinformation'] as String).toList();
       List<String> j = finedocs.map((e) => e['jd'] as String).toList();
+      var a1 = [];
+      var a2 = [];
+      var a3 = [];
+      var a4 = [];
+      var a5 = [];
+      var a6 = [];
+      String status2 = "filled";
+      for (var i in finedocs) {
+        a4.add(i["initialshortlistedstudents"]);
+        a5.add(i["oaclearedstudents"]);
+        a6.add(i["interviewclearedstudents"]);
+      }
+      for (var i in a4[0]) {
+        if (i.toString() != "19103045") {
+          a1.add(i.toString());
+        }
+      }
+      for (var i in a5[0]) {
+        if (i.toString() != "19103045") {
+          a2.add(i.toString());
+        }
+      }
+      for (var i in a6[0]) {
+        if (i.toString() != "19103045") {
+          a3.add(i.toString());
+        }
+      }
+
+      for (var i in a1) {
+        if (i == widget.enrollno) {
+          status2 = 'shortlisted for OA';
+        }
+      }
+      print(status2);
+      for (var i in a2) {
+        if (i == widget.enrollno) {
+          status2 = "shortlisted for interview";
+        }
+      }
+      for (var i in a3) {
+        if (i == widget.enrollno) {
+          status2 = "Placed";
+        }
+      }
 
       setState(() {
         cgpa = a[0];
@@ -258,6 +323,7 @@ class _companyapplyState extends State<companyapply> {
         branch = s[0];
         reason = t[0];
         jd = j[0];
+        finalstatus = status2;
       });
     } catch (e) {
       print(e.toString());

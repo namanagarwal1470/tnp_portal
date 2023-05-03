@@ -18,9 +18,9 @@ class companymanagementpage2 extends StatefulWidget {
 class _companymanagementpage2State extends State<companymanagementpage2> {
   List companyname = [
     "Company Information",
-    "filled students",
+    "Filled Students",
     "OA Shortlisted Students",
-    'Interview Shortlisted students',
+    'Interview Shortlisted Students',
     "Placed Students"
   ];
   var package = '';

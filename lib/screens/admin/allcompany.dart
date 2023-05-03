@@ -82,10 +82,12 @@ class _companymanagementpageState extends State<companymanagementpage> {
                   arrowbackbutton(context),
                   Container(
                     height: (MediaQuery.of(context).size.height) * 0.1,
-                    margin: EdgeInsets.only(left: 10, top: 50),
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    margin: EdgeInsets.only(top: 50),
                     child: Text("All Companies",
                         style: TextStyle(color: Colors.white, fontSize: 30)),
                   ),
+                  Createfine(context)
                 ],
               ),
               Padding(
@@ -122,13 +124,13 @@ class _companymanagementpageState extends State<companymanagementpage> {
                 children: [
                   Container(
                     child: Text(
-                      "inprocess: " + inprocesscount.toString(),
+                      "In Process: " + inprocesscount.toString(),
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                   SizedBox(width: 10),
                   Container(
-                    child: Text("completed: " + completedcount.toString(),
+                    child: Text("Completed: " + completedcount.toString(),
                         style: TextStyle(color: Colors.white)),
                   ),
                 ],

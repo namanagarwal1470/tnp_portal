@@ -69,7 +69,7 @@ class _companyapply2State extends State<companyapply2> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Enrollno",
+                      "Enroll no",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),

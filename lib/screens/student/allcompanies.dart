@@ -127,13 +127,13 @@ class _companypageState extends State<companypage> {
                 children: [
                   Container(
                     child: Text(
-                      "filled: " + filledcount.toString(),
+                      "Filled: " + filledcount.toString(),
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                   SizedBox(width: 10),
                   Container(
-                    child: Text("not filled: " + notfilledcount.toString(),
+                    child: Text("Not Filled: " + notfilledcount.toString(),
                         style: TextStyle(color: Colors.white)),
                   ),
                 ],

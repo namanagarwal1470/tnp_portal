@@ -41,7 +41,7 @@ class _ctcState extends State<ctc> {
               margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  "Ctc calculator",
+                  "Ctc Calculator",
                   style: TextStyle(color: Colors.white, fontSize: 35),
                 ),
               )),
@@ -61,7 +61,7 @@ class _ctcState extends State<ctc> {
             ),
             filled: true,
             hintText: 'cgpa',
-            labelText: 'cgpa',
+            labelText: 'Cgpa',
           ),
           keyboardType: TextInputType.text,
           controller: cgpa,
@@ -91,7 +91,7 @@ class _ctcState extends State<ctc> {
             ),
             filled: true,
             hintText: 'Leetcode rating',
-            labelText: 'leetcode rating (0 if not available)',
+            labelText: 'Leetcode rating (0 if not available)',
           ),
           keyboardType: TextInputType.text,
           controller: rating1,
@@ -106,7 +106,7 @@ class _ctcState extends State<ctc> {
             ),
             filled: true,
             hintText: 'Codechef rating',
-            labelText: 'codechef rating (0 if not available)',
+            labelText: 'Codechef rating (0 if not available)',
           ),
           keyboardType: TextInputType.text,
           controller: rating2,
@@ -121,7 +121,7 @@ class _ctcState extends State<ctc> {
             ),
             filled: true,
             hintText: 'codeforces rating',
-            labelText: 'codeforces rating (0 if not available)',
+            labelText: 'Codeforces rating (0 if not available)',
           ),
           keyboardType: TextInputType.text,
           controller: rating3,
@@ -136,7 +136,7 @@ class _ctcState extends State<ctc> {
             ),
             filled: true,
             hintText: 'Leetcode no of questions',
-            labelText: 'leetcode no of questions (0 if not available)',
+            labelText: 'Leetcode no of questions (0 if not available)',
           ),
           keyboardType: TextInputType.text,
           controller: question1,
@@ -151,7 +151,7 @@ class _ctcState extends State<ctc> {
             ),
             filled: true,
             hintText: 'Gfg no of questions',
-            labelText: 'gfg no of questions (0 if not available)',
+            labelText: 'Gfg no of questions (0 if not available)',
           ),
           keyboardType: TextInputType.text,
           controller: question2,
@@ -168,7 +168,7 @@ class _ctcState extends State<ctc> {
       children: [
         GestureDetector(
           onTap: () {
-            if (int.parse(cgpa.text) > 8) {
+            if (double.parse(cgpa.text) > 8) {
               if (int.parse(rating3.text) > 1800 ||
                   int.parse(rating2.text) > 2000 ||
                   int.parse(rating1.text) > 2000) {
@@ -212,7 +212,7 @@ class _ctcState extends State<ctc> {
                   ),
                 );
               }
-            } else if (int.parse(cgpa.text) > 7) {
+            } else if (double.parse(cgpa.text) > 7) {
               if (int.parse(rating3.text) > 1800 ||
                   int.parse(rating2.text) > 2000 ||
                   int.parse(rating1.text) > 2000) {

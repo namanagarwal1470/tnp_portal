@@ -49,7 +49,7 @@ class _placementdata2State extends State<placementdata2> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Company name",
+                            "Company Name",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -66,7 +66,7 @@ class _placementdata2State extends State<placementdata2> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Package offered",
+                            "Package Offered",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -134,7 +134,7 @@ class _placementdata2State extends State<placementdata2> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "month of visiting",
+                            "Placement Drive Month",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),

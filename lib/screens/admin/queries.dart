@@ -121,7 +121,7 @@ class _complaintpageState extends State<complaintpage> {
               Container(
                 margin: EdgeInsets.only(left: 20),
                 child: Text(
-                  "Enrollno: " + text1,
+                  "Enroll no: " + text1,
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ),

@@ -40,7 +40,7 @@ class _myleavedetailsState extends State<myleavedetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Company name",
+                      "Company Name",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
@@ -74,7 +74,7 @@ class _myleavedetailsState extends State<myleavedetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Cgpa cut",
+                      "Cgpa",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),

@@ -126,13 +126,13 @@ class _studentpageState extends State<studentpage> {
                 children: [
                   Container(
                     child: Text(
-                      "placed: " + placedcount.toString(),
+                      "Placed: " + placedcount.toString(),
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                   SizedBox(width: 10),
                   Container(
-                    child: Text("not placed: " + notplacedcount.toString(),
+                    child: Text("Not Placed: " + notplacedcount.toString(),
                         style: TextStyle(color: Colors.white)),
                   ),
                 ],

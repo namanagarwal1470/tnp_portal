@@ -204,50 +204,50 @@ class _studenthomepageState extends State<studenthomepage> {
                             ),
                           ),
                         ),
-                        // GestureDetector(
-                        //   onTap: () => {
-                        //     // Navigator.push(
-                        //     //     context,
-                        //     //     MaterialPageRoute(
-                        //     //         builder: (context) =>
-                        //     //             myfine(widget.enrollno)))
-                        //   },
-                        //   child: Container(
-                        //     decoration: BoxDecoration(
-                        //         boxShadow: [
-                        //           //background color of box
-                        //           BoxShadow(
-                        //             color: Color.fromARGB(255, 128, 89, 196),
-                        //             // soften the shadow
-                        //             //extend the shadow
-                        //             spreadRadius: 1.0,
-                        //             blurRadius: 5.0,
-                        //             offset: Offset(
-                        //               3.0, // Move to right 10  horizontally
-                        //               3.0, // Move to bottom 10 Vertically
-                        //             ),
-                        //           )
-                        //         ],
-                        //         color: Colors.white,
-                        //         borderRadius: BorderRadius.circular(25)),
-                        //     height: 200,
-                        //     width: MediaQuery.of(context).size.width * 0.45,
-                        //     child: Column(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       crossAxisAlignment: CrossAxisAlignment.center,
-                        //       children: [
-                        //         Text(
-                        //           "Pay",
-                        //           style: TextStyle(fontSize: 22),
-                        //         ),
-                        //         Text(
-                        //           "Fines",
-                        //           style: TextStyle(fontSize: 22),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // )
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        myfine(widget.enrollno)))
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  //background color of box
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 128, 89, 196),
+                                    // soften the shadow
+                                    //extend the shadow
+                                    spreadRadius: 1.0,
+                                    blurRadius: 5.0,
+                                    offset: Offset(
+                                      3.0, // Move to right 10  horizontally
+                                      3.0, // Move to bottom 10 Vertically
+                                    ),
+                                  )
+                                ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(25)),
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "My",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                                Text(
+                                  "Fines",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     )
                   ],
@@ -283,7 +283,7 @@ class _studenthomepageState extends State<studenthomepage> {
           decoration: BoxDecoration(color: Colors.deepPurple),
           child: Center(
               child: Text(
-            'T&P portal',
+            'T&P Portal',
             style: TextStyle(
                 color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
           )),
@@ -324,8 +324,10 @@ class _studenthomepageState extends State<studenthomepage> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => mycomplaints(widget.enrollno)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => mycomplaints(widget.enrollno)));
           },
           child: ListTile(
             title: Row(
@@ -347,7 +349,7 @@ class _studenthomepageState extends State<studenthomepage> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  'My queries',
+                  'My Queries',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -379,7 +381,7 @@ class _studenthomepageState extends State<studenthomepage> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  'Placement data',
+                  'Placement Data',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -447,7 +449,7 @@ class _studenthomepageState extends State<studenthomepage> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  'Previous company data',
+                  'Previous Company Data',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -479,7 +481,7 @@ class _studenthomepageState extends State<studenthomepage> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  'Ctc calculator',
+                  'Ctc Calculator',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],

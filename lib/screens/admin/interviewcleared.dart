@@ -74,7 +74,7 @@ class _studentpage5State extends State<studentpage5> {
                   Container(
                     height: (MediaQuery.of(context).size.height) * 0.1,
                     margin: EdgeInsets.only(left: 10, top: 50),
-                    child: Text("Interview cleared Students",
+                    child: Text("Placed Students",
                         style: TextStyle(color: Colors.white, fontSize: 25)),
                   ),
                 ],

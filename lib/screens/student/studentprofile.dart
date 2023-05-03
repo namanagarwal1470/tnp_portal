@@ -25,6 +25,8 @@ class _studentprofileState extends State<studentprofile> {
   // String localguardianname = '';
   // String localguardianmobile = '';
   String address = '';
+  String placedcompany = '';
+  String status = '';
   TextEditingController resume2 = TextEditingController();
 
   bool isloading = true;
@@ -111,6 +113,14 @@ class _studentprofileState extends State<studentprofile> {
               textcontainer(
                   h_factor * 23, w_factor * 312, h_factor * 16, "Address:"),
               textfield(h_factor * 50, w_factor * 312, true, address),
+              status == 'placed'
+                  ? textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
+                      "Placed Company:")
+                  : Text(""),
+              status == 'placed'
+                  ? textfield(
+                      h_factor * 50, w_factor * 312, true, placedcompany)
+                  : Text(""),
               SizedBox(height: 20),
               !show ? Submitbutton(context) : textfieldbutton(context),
               show ? resumeupdate(context) : Text("")
@@ -325,6 +335,9 @@ class _studentprofileState extends State<studentprofile> {
       // List<String> rn = leavesdocs.map((e) => e['roomno'] as String).toList();
       List<String> y = leavesdocs.map((e) => e['year'] as String).toList();
       var re = leavesdocs.map((e) => e['resume'] as String).toList();
+      List<String> pc =
+          leavesdocs.map((e) => e['placedcompany'] as String).toList();
+      List<String> s = leavesdocs.map((e) => e['status'] as String).toList();
       setState(() {
         name = nm[0];
         dob = db[0];
@@ -338,6 +351,8 @@ class _studentprofileState extends State<studentprofile> {
         // floor = fl[0];
         parentsname = pn[0];
         parentsmobile = pp[0];
+        placedcompany = pc[0];
+        status = s[0];
         // localguardianname = lgn[0];
         // localguardianmobile = lgp[0];
         address = ad[0];

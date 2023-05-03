@@ -67,7 +67,7 @@ class _placementdataState extends State<placementdata> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "percent students placed",
+                            "Percent Students Placed",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -84,7 +84,7 @@ class _placementdataState extends State<placementdata> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "no of eligible students",
+                            "No Of Eligible Students",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -101,7 +101,7 @@ class _placementdataState extends State<placementdata> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "highest package",
+                            "Highest Package",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -118,7 +118,7 @@ class _placementdataState extends State<placementdata> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "average package",
+                            "Average Package",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -135,7 +135,7 @@ class _placementdataState extends State<placementdata> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "total offers",
+                            "Total Offers",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -152,7 +152,7 @@ class _placementdataState extends State<placementdata> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "no of students placed",
+                            "No Of Students Placed",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -169,7 +169,7 @@ class _placementdataState extends State<placementdata> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "percent of total offers",
+                            "Percent Of Total Offers",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -186,7 +186,7 @@ class _placementdataState extends State<placementdata> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "median package",
+                            "Median Package",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),

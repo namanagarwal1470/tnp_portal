@@ -64,7 +64,7 @@ class _ComplainFormState extends State<ComplainForm> {
               margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  "Contact us",
+                  "Contact Us",
                   style: TextStyle(color: Colors.white, fontSize: 35),
                 ),
               )),
